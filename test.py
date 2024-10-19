@@ -1,1 +1,1 @@
-print('Testing to see if my git works')
+print('Testing to see if the git works')
