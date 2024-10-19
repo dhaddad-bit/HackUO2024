@@ -1,4 +1,7 @@
-class Question:
+import elements
+
+
+class Question(QuElement):
     def __init__(self, value : bool):
         self.is_qual = value
         # Question text  is determined later in the Survey class
