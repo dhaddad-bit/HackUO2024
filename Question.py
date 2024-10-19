@@ -1,4 +1,4 @@
-import elements
+from elements import QuElement
 
 
 class Question(QuElement):
