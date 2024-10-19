@@ -5,6 +5,7 @@ class Question:
         self.Is_Qual = val
 
 
+
     def checkQual(self):
         return self.Is_Qual
 
