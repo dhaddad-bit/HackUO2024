@@ -10,10 +10,10 @@ class Survey:
 
 
 
-    def Question_pool(num_of_questions : int):
-        result = {}
-        file = open(PATH, 'r')
+    def Reader(Path : str):
+        result = []
+        file = open(Path, 'r')
         reader = csv.DictReader(file)
         for row in reader:
-            read_csv_column(file, "key_field")
+            result.append(row)
         return result
