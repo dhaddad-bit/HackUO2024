@@ -6,10 +6,12 @@ class Survey:
         self.num_of_questions = num_of_questions
         self.questions = []
 
-    def Reader(Path : str) -> []:
-        result = []
+    def Reader(Path : str, field : str) -> []:
+
+        column = []
         file = open(Path, 'r')
         reader = csv.DictReader(file)
-        for row in reader:
-            result.append(row)
-        return result
+        for i in reader:
+            column.append(i[field])
+        return column
+
