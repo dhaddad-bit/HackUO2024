@@ -1,11 +1,14 @@
-
 class Question:
-
-    def __init__(self, val : bool):
-        self.Is_Qual = val
-
-
+    def __init__(self, value : bool):
+        self.is_qual = value
+        # Question text  is determined later in the Survey class
+        self.question_text = ""
 
     def checkQual(self):
-        return self.Is_Qual
+        return self.is_qual
 
+    def setQuestionText(self, new_question_text):
+        self.question_text = new_question_text
+
+    def getQuestionText(self):
+        return self.question_text
