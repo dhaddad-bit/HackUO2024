@@ -6,10 +6,12 @@ class Survey_All:
         self.num_of_questions = num_of_questions
         self.questions = []
 
-    def Reader(Path : str) -> []:
-        result = []
+    def Reader(Path : str, field : str) -> []:
+
+        column = []
         file = open(Path, 'r')
         reader = csv.DictReader(file)
+<<<<<<< HEAD
         for row in reader:
             result.append(row)
         return result
@@ -39,3 +41,8 @@ def load_questions(filename, survey_all):
     with open(filename):
         reader = csv.DictReader()
         #check if value is quanti
+=======
+        for i in reader:
+            column.append(i[field])
+        return column
+>>>>>>> 500685810c4d21c6a67e14c3ea5798c005616806
