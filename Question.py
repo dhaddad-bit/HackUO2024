@@ -3,6 +3,7 @@ class Question:
         self.is_qual = value
         # Question text  is determined later in the Survey class
         self.question_text = ""
+        self.response_text = ""
 
     def checkQual(self):
         return self.is_qual
@@ -12,3 +13,9 @@ class Question:
 
     def getQuestionText(self):
         return self.question_text
+
+    def setResponseText(self, new_response_text):
+        self.response_text = new_response_text
+
+    def getResponseText(self):
+        return self.response_text
