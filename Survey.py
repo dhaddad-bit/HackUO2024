@@ -1,15 +1,48 @@
 from Question import Question
 import csv
 
-class Survey:
+class Survey_All:
     def __init__(self, num_of_questions : int):
         self.num_of_questions = num_of_questions
         self.questions = []
 
-    def Reader(Path : str) -> []:
-        result = []
+    def Reader(Path : str, field : str) -> []:
+
+        column = []
         file = open(Path, 'r')
         reader = csv.DictReader(file)
+<<<<<<< HEAD
         for row in reader:
             result.append(row)
         return result
+    
+    def __str__(self):
+        return self.questions
+    
+
+class Survey:
+    def __init__(self, question, answer, quant_qual):
+        self.question = question        
+        self.answer = answer
+        self.q = quant_qual
+
+    def checker(self):
+        
+
+
+    def __str__(self):
+        return f"{self.question}:\n{self.answer}"
+
+    
+
+
+
+def load_questions(filename, survey_all):
+    with open(filename):
+        reader = csv.DictReader()
+        #check if value is quanti
+=======
+        for i in reader:
+            column.append(i[field])
+        return column
+>>>>>>> 500685810c4d21c6a67e14c3ea5798c005616806
