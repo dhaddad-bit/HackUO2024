@@ -14,4 +14,3 @@ class Survey:
         for i in reader:
             column.append(i[field])
         return column
-
