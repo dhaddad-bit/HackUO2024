@@ -1,2 +1,2 @@
 # HackUO2024
-Wellness App (tracks wellness)
+Wellness App (tracks wellness) 
