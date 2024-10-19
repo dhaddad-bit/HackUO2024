@@ -10,7 +10,7 @@ class Survey:
 
 
 
-    def Reader(Path : str):
+    def Reader(Path : str) -> []:
         result = []
         file = open(Path, 'r')
         reader = csv.DictReader(file)
