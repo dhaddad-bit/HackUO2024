@@ -1,3 +1,5 @@
+from os import write
+
 from Question import Question
 import csv
 
@@ -14,3 +16,8 @@ class Survey:
         for i in reader:
             column.append(i[field])
         return column
+
+    def Writer(Path : str, update : str):
+        file = open(Path, 'a+')
+        writer = csv.dictwriter(file)
+        writer.write(update)
