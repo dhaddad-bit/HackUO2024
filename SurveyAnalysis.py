@@ -2,5 +2,5 @@
 # be able to figure out the current questions
 
 class SurveyAnalysis:
-    def __init__(self):
+    def findAverage(self, question_num):
         pass
