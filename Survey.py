@@ -7,7 +7,7 @@ class Survey:
         self.questions = []
 
     def Reader(Path : str, field : str) -> []:
-
+    #returns a list of items from the csv in Path, returns the provided field by line in a list
         column = []
         file = open(Path, 'r')
         reader = csv.DictReader(file)
