@@ -6,3 +6,6 @@ https://ioflood.com/blog/python-write-to-csv/#:~:text=To%20write%20data%20to%20a
 
 #Calendar In Numpy and matplotlib
 https://stackoverflow.com/questions/32485907/matplotlib-and-numpy-create-a-calendar-heatmap
+
+#Object Oriented TKinter
+https://pythonprogramming.net/object-oriented-programming-crash-course-tkinter/?completed=/tkinter-depth-tutorial-making-actual-program/
