@@ -20,7 +20,7 @@ CURRENT_QNT_RES = {}
 LARGE_FONT = ("Comic Sans", 14, "bold")
 
 
-OVERLAY = ['overlay/pic_1.jpg','overlay/pic_2.jpg','overlay/pic_3.jpg']
+OVERLAY = ['./overlay/pic_1.jpg','./overlay/pic_2.jpg','./overlay/pic_3.jpg']
 
 # Make sure to provide a valid image path
 a = rand_quote(OVERLAY)
@@ -33,11 +33,18 @@ class App(tk.Tk):
     def __init__(self, *args, **kwargs):
         
         tk.Tk.__init__(self, *args, **kwargs)
-        self.geometry("600x600")
+        self.geometry("600x800")
         container = tk.Frame(self, width=600, height=400)
 
         container.pack(side="top", fill="both", expand = True)
         container.grid_propagate(False)
+
+
+        self.image = Image.open('./overlay/pic_3.jpg')
+        self.python_image = ImageTk.PhotoImage(self.image)
+
+        ttk.Label(self, image=self.python_image).pack()
+
 
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
@@ -67,13 +74,10 @@ class StartPage(tk.Frame):
 
         self.grid_propagate(False)
 
-        image = Image.open(f"{a}")  # Provide the path to your image
-        self.photo = ImageTk.PhotoImage(image)
-        image_label = tk.Label(self, image=self.photo)
-        image_label.pack(pady=10)
 
 
-        label = tk.Label(self, text="Welcome!", font=LARGE_FONT)
+
+        label = tk.Label(self, text="Welcome!", font=LARGE_FONT, bg = "white")
         label.pack(pady=10,padx=10)
 
 
