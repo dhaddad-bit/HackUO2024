@@ -27,8 +27,8 @@ def load_data(filename: str, column_titles: list) -> dict:
                 value = row[header.index(title)]
                 if title == 'date':
                     value = datetime.datetime.strptime(value, '%Y-%m-%d')
-                elif title == 'question_#':
-                    value = s.questions[int(value)]
+                # elif title == 'question_#':
+                #     value = s.questions[int(value)]
 
                 
                 new_list.append(value)
