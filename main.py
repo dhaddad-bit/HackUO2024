@@ -3,7 +3,7 @@ import Question
 from view import *
 
 first_q = Question(False)
-Question.
+Question
 
 
 def main():
@@ -19,8 +19,9 @@ print(s.question_pool())
 
 
 def main():
-    #app = WellnessTracker() 
-
+    s = Survey() 
+    s.reader(location)
+    s.reader(location2)
 
 
 
