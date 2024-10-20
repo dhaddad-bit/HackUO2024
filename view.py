@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.tix as tix
 from tkinter import ttk
-
+from survey import Survey
 from tkcalendar import Calendar, DateEntry
 import datetime
 
@@ -188,13 +188,30 @@ class QualPage(tk.Frame):
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
         
-class QuanPage(tk.Frame):
+class QuanPage(tk.Frame, s):
     def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
     
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
+
+        self.label = tk.Label(self, text= rand_quote(s.quant))
+        self.label.pack(pady=5)
+
+        self.quote_button = tk.Button(self, text="New Quote",
+                                      command=lambda: self.get_new_quote(self.label))
+        self.quote_button.pack(pady=5)
+
+
+        self.back_button = tk.Button(self, text="Back to Main Page",
+                                     command=lambda: controller.show_frame(StartPage))
+        self.back_button.pack(pady=10)
+    
+    def get_new_survey(self, label):
+        label.config(text=rand_quote(s.quant))
 
 class InspQuPage(tk.Frame):
     def __init__(self, parent, controller):

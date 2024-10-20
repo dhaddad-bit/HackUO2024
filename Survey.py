@@ -31,7 +31,7 @@ class Survey:
         return f"{txt}"
 
 
-            
+           
     
 
     def reader(self, path: str):
@@ -86,10 +86,10 @@ class Survey:
         return [q for q in self.questions if keyword in q]
 
 
-s = Survey()
+# s = Survey()
 
-s.reader(location)
-s.reader(location2)
-s.find_num()
-print(s.questions)
-print(s.num_of_questions)
+# s.reader(location)
+# s.reader(location2)
+# s.find_num()
+# print(s.questions)
+# print(s.num_of_questions)
