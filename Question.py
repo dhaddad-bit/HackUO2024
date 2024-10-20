@@ -2,10 +2,10 @@
 
 class Question(object):
 
-    def __init__(self, question_text, value : bool):
+    def __init__(self, question_text, value : bool, time):
         self.is_qual = value
-        # Question text  is determined later in the Survey class
         self.question_text = question_text
+        self.time = time
         self.response_text = ""
 
     def check_qual(self):

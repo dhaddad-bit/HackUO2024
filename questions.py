@@ -39,7 +39,7 @@ def load_quotes(filename: str, title) -> list:
 
         for row in csv_reader:
             value = row[header.index(title)]
-            data_list.append(value)
+            data_list.append((row_count, value))
             row_count += 1
         
     return data_list
