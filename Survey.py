@@ -9,45 +9,41 @@ location2 = 'CSV/quantitative.csv'
 
 class Survey:
 
-    def __init__(self, num_of_questions: int = 0, survey_type: str = "random"):
-        self.num_of_questions = num_of_questions
+    def __init__(self, num_of_questions: int=0, survey_type: str = "random"):
         self.questions = []
-        self.qual = []
-        self.quant = []
+        #self.qual = []
+        #self.quant = []
         self.survey_type = survey_type
+        self.num_of_questions = num_of_questions
+        
+    def find_num(self):
+        i = 0
+        for item in range(len(self.questions)):
+            i +=1
+        self.num_of_questions = i
 
+    def total_q(self):
+        return f"{self.num_of_questions}"
+        
     def __str__(self):
-        questions = ( i in self.questions for )
+        txt = "\n".join(f"{self.questions[i]}" for i in range(self.num_of_questions))
+        print(txt)
         return f"{self.questions}"
 
-    def reader(self, Path : str, qual:bool) -> list[str]:
-        
-        file = open(Path, 'r')
-        reader = csv.reader(file)
-        for i, row in enumerate(reader):
-            d = {}
-            d[i] = row[0]
-            self.questions.append(d)
 
-            if qual:
-                self.qual.append(d)
-            else:
-                self.quant.append(d)
-
-        file.close()
             
     
 
-    def reader(self, path: str, qual: bool):
+    def reader(self, path: str):
         """Read question from a CSV file and appends to survey lists."""
         with open(path, 'r', encoding='utf-8') as file:
             reader = csv.reader(file)
             for i, row in enumerate(reader):
                 question = row[0]  # Assuming first column is the question text
-                if qual:
-                    self.qual.append(question)
-                else:
-                    self.quant.append(question)
+                # if qual:
+                #     self.qual.append(question)
+                # else:
+                #     self.quant.append(question)
                 self.questions.append(question)
 
     def writer(self, Path : str, update : str):
@@ -92,5 +88,8 @@ class Survey:
 
 s = Survey()
 
-s.reader(location, True)
-print(s.questions())
+s.reader(location)
+s.reader(location2)
+s.find_num()
+print(s.questions)
+print(s.num_of_questions)

@@ -31,7 +31,7 @@ def csv_file_exists(filename):
     #read_word reads from csv file, takes a Words object
     # and turns ine into word, and appends to all.
 
-def read_question(filename, dict, key):
+def read_question(filename, l:list):
     """reads line in file converts to Word saves to Words.all"""
     if csv_file_exists(filename):
             
@@ -40,8 +40,8 @@ def read_question(filename, dict, key):
             headers = reader.fieldnames
 
             for line in reader:
-
-
+                
+                
                 #fix me.append_main(new)#saving to .all
             return dict
     else:
