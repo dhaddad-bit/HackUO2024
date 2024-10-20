@@ -35,7 +35,7 @@ class App(tk.Tk):
     def __init__(self, *args, **kwargs):
 
         tk.Tk.__init__(self, *args, **kwargs)
-        self.geometry("680x750")
+        self.geometry("650x750")
         container = tk.Frame(self, width=700, height=800)
 
         container.pack(side="top", fill="both", expand = True)
