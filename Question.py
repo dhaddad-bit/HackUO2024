@@ -1,4 +1,4 @@
-from elements import QuElement, QuEvent, EventKindQuestion
+from elements import QuElement, QuEvent, EventKindQuestion, Listener
 
 
 class Question(QuElement):
