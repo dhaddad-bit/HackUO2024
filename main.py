@@ -1,8 +1,7 @@
 <<<<<<< HEAD
 from view import *
 
-first_q = Question(False)
-Question
+
 
 
 def main():
