@@ -7,13 +7,12 @@ import datetime
 
 import csv
 
-from questions import rand_quote, load_data, load_quotes
+from questions import rand_quote, load_data, load_quotes, save_inputs
 
 DIC = {}
 
 PAST_RATES = load_data("csv/rate_day.csv", ["date", "rating"])
 QUANT_RES = load_data("csv/quantitative_responses.csv", ["date", "question_#", "response"])
-print(QUANT_RES)
 
 class App(tk.Tk):
 
@@ -43,7 +42,6 @@ class App(tk.Tk):
         self.frames[cont].update()
         frame = self.frames[cont]
         frame.tkraise()
-
 
 class StartPage(tk.Frame):
 
@@ -192,12 +190,14 @@ class QuanPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-    
+        self.res_dict = {}
+
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
 
-        self.label = tk.Label(self, text= rand_quote(load_quotes("csv/quantitative.csv", "Questions")))
+        self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))
+        self.label = tk.Label(self, text=self.question)
         self.label.pack(pady=5)
 
         self.txt = tk.Text(self, height=10,
@@ -213,12 +213,17 @@ class QuanPage(tk.Frame):
         self.quote_button.pack(pady=5)
 
     def get_new_survey(self, label):
-        label.config(text=rand_quote(load_quotes("csv/quantitative.csv", "Questions")))
+        self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))[1]
+        label.config(text = self.question)
+        csv_inp = [datetime.date.today().strftime("%Y-%m-%d"), ]
+        save_inputs(csv_inp, "csv/quantitative_responses.csv")
 
     def take_input(self, txt):
         inp = txt.get("1.0", "end-1c")
+        self.res_dict[self.question] = inp
         txt.delete('1.0', tk.END)
-        
+        print(self.res_dict)
+
 
 class InspQuPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -228,7 +233,7 @@ class InspQuPage(tk.Frame):
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
 
-        self.label = tk.Label(self, text= rand_quote(load_quotes("csv/inspirational_quotes.csv", "Quote")))
+        self.label = tk.Label(self, text= rand_quote(load_quotes("csv/inspirational_quotes.csv", "Quote"))[1])
         self.label.pack(pady=5)
 
         self.quote_button = tk.Button(self, text="New Quote",
@@ -236,7 +241,7 @@ class InspQuPage(tk.Frame):
         self.quote_button.pack(pady=5)
 
     def get_new_quote(self, label):
-        label.config(text=rand_quote(load_quotes("csv/inspirational_quotes.csv", "Quote")))
+        label.config(text=rand_quote(load_quotes("csv/inspirational_quotes.csv", "Quote"))[1])
 
 
 class EditPage(tk.Frame):

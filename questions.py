@@ -4,11 +4,11 @@ import datetime
 quant_q = "CSV/quantitative.csv"
 qual_q = "CSV/qualitative.csv"
 
-from Survey import Survey
+from survey import Survey
 s = Survey()
 
-s.reader(location)
-s.reader(location2)
+s.reader(quant_q)
+s.reader(qual_q)
 
 
 def load_data(filename: str, column_titles: list) -> dict:
@@ -27,7 +27,7 @@ def load_data(filename: str, column_titles: list) -> dict:
                 if title == 'date':
                     value = datetime.datetime.strptime(value, '%Y-%m-%d')
                 elif title == 'question_#':
-                    s.questions[int(value)]
+                    value = s.questions[int(value)]
                 new_list.append(value)
 
             data_tuple = tuple(new_list)
@@ -55,5 +55,14 @@ def rand_quote(q_list: list):
     import random
     idx = len(q_list)
     rand = random.randint(0, idx-1)
-    res = q_list[rand][1]
+    res = q_list[rand]
     return res
+
+def save_inputs(words, filename):
+    """rewrites a file with updated list of words"""
+    with open(filename, 'a', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(words)
+        f.close()
+
+print(rand_quote(load_quotes("csv/quantitative.csv", "Questions")))
