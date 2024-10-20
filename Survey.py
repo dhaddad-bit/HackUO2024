@@ -6,29 +6,49 @@ import csv
 location = 'CSV/qualitative.csv'
 location2 = 'CSV/quantitative.csv'
 
+
 class Survey:
 
-    def __init__(self, num_of_questions : int, type : str):
+    def __init__(self, num_of_questions: int = 0, survey_type: str = "random"):
         self.num_of_questions = num_of_questions
-        self.type = type
         self.questions = []
+        self.qual = []
+        self.quant = []
+        self.survey_type = survey_type
 
-    def reader(self, Path : str) -> [str]:
-        column = []
+    def __str__(self):
+        questions = ( i in self.questions for )
+        return f"{self.questions}"
+
+    def reader(self, Path : str, qual:bool) -> list[str]:
+        
         file = open(Path, 'r')
         reader = csv.reader(file)
-        for row in reader:
-            column.append(row)
-        return column
+        for i, row in enumerate(reader):
+            d = {}
+            d[i] = row[0]
+            self.questions.append(d)
 
-    def field_reader(self, Path : str, field : str) -> [str]:
-        column = []
-        file = open(Path, 'r')
-        reader = csv.reader(file)
-        for row in reader:
-            column.append(row[field])
-        return column
+            if qual:
+                self.qual.append(d)
+            else:
+                self.quant.append(d)
 
+        file.close()
+            
+    
+
+    def reader(self, path: str, qual: bool):
+        """Read question from a CSV file and appends to survey lists."""
+        with open(path, 'r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            for i, row in enumerate(reader):
+                question = row[0]  # Assuming first column is the question text
+                if qual:
+                    self.qual.append(question)
+                else:
+                    self.quant.append(question)
+                self.questions.append(question)
 
     def writer(self, Path : str, update : str):
         file = open(Path, 'a+')
@@ -48,7 +68,7 @@ class Survey:
 
         return questionList
 
-    def question_pool(self) -> [Question]:
+    def question_pool(self) -> list[Question]:
         #gathers questions into a list initially as strings then it initializes and returns the question objects in a list
         pool = []
 
@@ -63,3 +83,14 @@ class Survey:
 
     def add_question(self, question):
         self.questions.append(question)
+
+
+    def filter_questions(self, keyword: str) -> list:
+        """Returns a list of questions containing the specified keyword."""
+        return [q for q in self.questions if keyword in q]
+
+
+s = Survey()
+
+s.reader(location, True)
+print(s.questions())
