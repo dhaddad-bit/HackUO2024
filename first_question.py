@@ -1,7 +1,5 @@
 import csv
-import elements
 import os
-import view
 
 
 
