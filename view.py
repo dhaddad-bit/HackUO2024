@@ -191,8 +191,7 @@ class QualPage(tk.Frame):
 class QuanPage(tk.Frame, s):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
+
     
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
@@ -206,9 +205,6 @@ class QuanPage(tk.Frame, s):
         self.quote_button.pack(pady=5)
 
 
-        self.back_button = tk.Button(self, text="Back to Main Page",
-                                     command=lambda: controller.show_frame(StartPage))
-        self.back_button.pack(pady=10)
     
     def get_new_survey(self, label):
         label.config(text=rand_quote(s.quant))
