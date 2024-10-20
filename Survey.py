@@ -1,5 +1,5 @@
 from importlib.metadata import files
-from Question import Question
+from question import Question
 import random
 import csv
 
