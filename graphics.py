@@ -103,4 +103,9 @@ image_label.pack(pady=20)  # Pack the label into the window with some padding
 root.mainloop()
 
 
+from matplotlib.figure import Figure 
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,  
+NavigationToolbar2Tk) 
+
+def plot()
 
