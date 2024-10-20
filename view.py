@@ -26,7 +26,7 @@ QUALT_RES = load_data("csv/qualitative_responses.csv", ["date", "question_#", "r
 CURRENT_QNT_RES = {}
 
 LARGE_FONT = ("Arial", 25, "bold")
-BIGGER_FONT = ('Arial', 18, 'bold')
+BIGGER_FONT = ('Arial', 15, 'bold')
 MED_FONT = ("Arial", 14, "bold")
 OVERLAY = ['./overlay/pic_1.jpg', './overlay/pic_2.jpg', './overlay/pic_3.jpg', './overlay/pic_4.jpg',
             './overlay/pic_5.jpg', './overlay/pic_6.jpg', './overlay/pic_7.jpg', './overlay/pic_8.jpg', './overlay/pic_9.jpg', './overlay/pic_10.jpg']
@@ -362,7 +362,7 @@ class QuanPage(tk.Frame):
 
         button_frame = tk.Frame(self)
         self.quote_button = tk.Button(button_frame, text="Save", command=lambda: self.take_input(self.txt))
-        self.quote_button.pack(ipady=5, side='left')
+        self.quote_button.pack(ipady=5, padx=5, side='left')
 
         self.quote_button = tk.Button(button_frame, text="Next Question",
                                       command=lambda: self.get_new_survey(self.label))
