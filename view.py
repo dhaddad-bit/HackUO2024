@@ -248,9 +248,11 @@ class QuanPage(tk.Frame):
 
     def get_new_survey(self, label):
         res = self.res_dict[self.question[1]]
-        csv_inp = [datetime.date.today().strftime("%Y-%m-%d"), self.question[0], res]
-        save_inputs(csv_inp, "csv/quantitative_responses.csv")
-        self.update_calendar(r=res, q=self.question[1])
+
+        if res > 0:
+            csv_inp = [datetime.date.today().strftime("%Y-%m-%d"), self.question[0], res]
+            save_inputs(csv_inp, "csv/quantitative_responses.csv")
+            self.update_calendar(r=res, q=self.question[1])
 
         self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))
         label.config(text = self.question[1])

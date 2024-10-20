@@ -59,10 +59,9 @@ def rand_quote(q_list: list):
 
 def save_inputs(words, filename):
     """rewrites a file with updated list of words"""
-    with open(filename, 'a') as f:
+    with open(filename, 'a', newline = '') as f:
         writer = csv.writer(f)
         writer.writerow(words)
-        f.close()
 
 
 def inpt_as_number(input_string):
