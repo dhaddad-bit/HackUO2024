@@ -3,7 +3,7 @@ from view import *
 from elements import QuElement, QuEvent, EventKindQuestion
 
 first_q = Question(False)
-
+Question.
 
 
 def main():
