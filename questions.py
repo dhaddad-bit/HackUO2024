@@ -1,6 +1,5 @@
 import csv
 import datetime
-import word2number as w2n
 quant_q = "CSV/quantitative.csv"
 qual_q = "CSV/qualitative.csv"
 
@@ -67,6 +66,8 @@ def save_inputs(words, filename):
 
 
 def inpt_as_number(input_string):
+    import word2number as w2n
+
     """Takes quantitative input and extrapolates number value from entry"""
     input_list = input_string.split()
     print(input_list)
