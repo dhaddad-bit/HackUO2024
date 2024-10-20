@@ -1,48 +1,65 @@
+from importlib.metadata import files
 from Question import Question
+import random
 import csv
 
-class Survey_All:
-    def __init__(self, num_of_questions : int):
+location = 'CSV/qualitative.csv'
+location2 = 'CSV/quantitative.csv'
+
+class Survey:
+
+    def __init__(self, num_of_questions : int, type : str):
         self.num_of_questions = num_of_questions
+        self.type = type
         self.questions = []
 
-    def Reader(Path : str, field : str) -> []:
-
+    def reader(self, Path : str) -> [str]:
         column = []
         file = open(Path, 'r')
         reader = csv.DictReader(file)
-<<<<<<< HEAD
         for row in reader:
-            result.append(row)
-        return result
-    
-    def __str__(self):
-        return self.questions
-    
-
-class Survey:
-    def __init__(self, question, answer, quant_qual):
-        self.question = question        
-        self.answer = answer
-        self.q = quant_qual
-
-    def checker(self):
-        
-
-
-    def __str__(self):
-        return f"{self.question}:\n{self.answer}"
-
-    
-
-
-
-def load_questions(filename, survey_all):
-    with open(filename):
-        reader = csv.DictReader()
-        #check if value is quanti
-=======
-        for i in reader:
-            column.append(i[field])
+            column.append(row)
         return column
->>>>>>> 500685810c4d21c6a67e14c3ea5798c005616806
+
+    def field_reader(self, Path : str, field : str) -> [str]:
+        column = []
+        file = open(Path, 'r')
+        reader = csv.DictReader(file)
+        for row in reader:
+            column.append(row[field])
+        return column
+
+
+    def writer(self, Path : str, update : str):
+        file = open(Path, 'a+')
+        w = csv.writer(file)
+        w.writerow(update)
+        file.close()
+
+    def generateQuestions(self, questionPool):
+        questionList = []
+
+        for i in range(self.num_of_questions):
+            index = random.randint(0, len(questionPool) - 1)
+            questionList.append(questionPool[index])
+
+        for i in range(self.num_of_questions):
+            questionList[i] = Question(questionList[i], self.type == 'qualitative')
+
+        return questionList
+
+    def Question_pool(self) -> [Question]:
+        #gathers questions into a list initially as strings then it initializes and returns the question objects in a list
+        pool = []
+
+        if self.type == 'quantitative' or self.type == 'random':
+            for i in range(self.num_of_questions):
+                pool = self.reader(location)
+                return self.generateQuestions(pool)
+        if self.type == 'qualitative' or self.type == 'random':
+            for i in range(self.num_of_questions):
+                pool = self.reader(location2)
+                return self.generateQuestions(pool)
+
+    def add_question(self, question):
+        self.questions.append(question)
