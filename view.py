@@ -236,7 +236,6 @@ class RateDayPage(tk.Frame):
         DIC["rating"] = str(i)
         self.update_calendar()
 
-        save_inputs()
 
     def update_calendar(self):
         cal = self.controller.frames[CalendarPage]
