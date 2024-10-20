@@ -76,12 +76,12 @@ class StartPage(tk.Frame):
                             command=lambda: controller.show_frame(InspQuPage))
         button.pack(pady=10)
 
-        button = tk.Button(self, text="Add Your Own Stuff",
-                            command=lambda: controller.show_frame(EditPage))
-        button.pack(pady=10)
-
         button = tk.Button(self, text="Trends",
                             command=lambda: controller.show_frame(TrendPage))
+        button.pack(pady=10)
+
+        button = tk.Button(self, text="Add New Questions",
+                            command=lambda: controller.show_frame(EditPage))
         button.pack(pady=10)
 
 
@@ -119,6 +119,8 @@ class CalendarPage(tk.Frame):
             else:
                 self.d_qn[time] = []
                 self.d_qn[time].append((QUALT_RES[i][1], QUALT_RES[i][2]))
+
+        print(self.d_qn)
         
         self.calendar.tag_config('1', background='SteelBlue4', foreground='white')
         self.calendar.tag_config('2', background='SteelBlue3', foreground='white')
@@ -169,16 +171,16 @@ class CalendarPage(tk.Frame):
         close_button = tk.Button(new_window, text="Close", command=new_window.destroy)
         close_button.pack(pady=10)
 
-    def update_calendar(self, date, typ, q=None, r=None):
+    def update_calendar(self, date, typ=None, q=None, r=None):
         if typ == "rate":
             self.calendar.calevent_create(date, text="", tags=DIC["rating"])
-        elif typ == "qn":
+        if typ == "qn":
             if date in self.d_qn.keys():
                 self.d_qn[date].append((q, r))
             else:
                 self.d_qn[date] = []
                 self.d_qn[date].append((q, r))
-        elif typ == "ql":
+        if typ == "ql":
             if date in self.d_ql.keys():
                 self.d_ql[date].append((q, r))
             else:
@@ -235,7 +237,7 @@ class RateDayPage(tk.Frame):
 
     def update_calendar(self):
         cal = self.controller.frames[CalendarPage]
-        cal.update_calendar(datetime.date.today())
+        cal.update_calendar(datetime.date.today(), "rate")
 
 class QualPage(tk.Frame):
 
@@ -286,7 +288,7 @@ class QualPage(tk.Frame):
 
     def update_calendar(self, q, r):
         cal = self.controller.frames[CalendarPage]
-        cal.update_calendar(datetime.date.today(), "ql", q=q, r=r)
+        cal.update_calendar(datetime.date.today(), typ="ql", q=q, r=r)
 
 
         
@@ -306,7 +308,7 @@ class QuanPage(tk.Frame):
         self.label = tk.Label(self, text=self.question[1], bg="light blue")
         self.label.pack(pady=5)
 
-        self.txt = tk.Text(self, height=10,
+        self.txt = tk.Text(self, height=5,
                              width=25)
         self.txt.pack()
 
@@ -338,7 +340,7 @@ class QuanPage(tk.Frame):
 
     def update_calendar(self, q, r):
         cal = self.controller.frames[CalendarPage]
-        cal.update_calendar(datetime.date.today(), "qn", q=q, r=r)
+        cal.update_calendar(datetime.date.today(), typ="qn", q=q, r=r)
 
 
 class InspQuPage(tk.Frame):
@@ -366,7 +368,41 @@ class EditPage(tk.Frame):
     
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
-        self.back_button.pack(pady=10)   
+        self.back_button.pack(pady=10)
+
+        self.label = tk.Label(self, text="ADD YOUR OWN QUESTIONS")  
+        self.label.pack(pady=5) 
+
+        self.label = tk.Label(self, text="Enter New Numerical Check-In")
+        self.label.pack(pady=5)
+
+        self.qnq_text = tk.Text(self, height=5, width=25)
+        self.qnq_text.pack(pady=5)
+
+        self.save_button = tk.Button(self, text="Add Question",
+                                     command=lambda: self.save_to_q("num"))
+        self.save_button.pack(pady=10)
+
+        self.label = tk.Label(self, text="Enter New Short Answer Check-In")
+        self.label.pack(pady=5)
+
+        self.qlq_text = tk.Text(self, height=5, width=25)
+        self.qlq_text.pack(pady=5)
+
+        self.save_button = tk.Button(self, text="Add Question",
+                                     command=lambda: self.save_to_q("wri"))
+        self.save_button.pack(pady=10)
+    
+    def save_to_q(self, typ):
+        if typ == "num":
+            txt = self.qnq_text.get("1.0", "end-1c")
+            save_inputs([txt], "csv/quantitave.csv")
+            self.qnq_text.delete('1.0', tk.END)
+        elif typ == "wri":
+            txt = self.qlq_text.get("1.0", "end-1c")
+            save_inputs([txt], "csv/qualitative.csv")
+            self.qnq_text.delete('1.0', tk.END)
+
 
 class TrendPage(tk.Frame):
     def __init__(self, parent, controller):
