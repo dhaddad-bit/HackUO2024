@@ -12,7 +12,8 @@ from questions import rand_quote, load_data, load_quotes
 DIC = {}
 
 PAST_RATES = load_data("csv/rate_day.csv", ["date", "rating"])
-
+QUANT_RES = load_data("csv/quantitative_responses.csv", ["date", "question_#", "response"])
+print(QUANT_RES)
 
 class App(tk.Tk):
 

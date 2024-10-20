@@ -1,5 +1,5 @@
 from importlib.metadata import files
-from question import Question
+from Question import Question
 import random
 import csv
 
@@ -29,9 +29,6 @@ class Survey:
         txt = "\n".join(f"{self.questions[i]}" for i in range(self.num_of_questions))
         #print(txt)
         return f"{txt}"
-
-
-           
     
 
     def reader(self, path: str):
