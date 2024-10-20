@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.tix as tix
 from tkinter import ttk
+
 #from survey import Survey
 from tkcalendar import Calendar, DateEntry
 import datetime
@@ -130,16 +131,16 @@ class CalendarPage(tk.Frame):
                 self.d_qn[time] = []
                 self.d_qn[time].append((QUALT_RES[i][1], QUALT_RES[i][2]))
         
-        self.calendar.tag_config('1', background='SteelBlue4', foreground='white')
-        self.calendar.tag_config('2', background='SteelBlue3', foreground='white')
-        self.calendar.tag_config('3', background='SteelBlue2', foreground='white')
-        self.calendar.tag_config('4', background='SteelBlue1', foreground='white')
-        self.calendar.tag_config('5', background='turquoise', foreground='white')
-        self.calendar.tag_config('6', background='aquamarine', foreground='white')
-        self.calendar.tag_config('7', background='SpringGreen1', foreground='white')
-        self.calendar.tag_config('8', background='SpringGreen2', foreground='white')
-        self.calendar.tag_config('9', background='SpringGreen3', foreground='white')
-        self.calendar.tag_config('10', background="SpringGreen4", foreground='white')
+        self.calendar.tag_config('1', background='SteelBlue4', foreground='black')
+        self.calendar.tag_config('2', background='SteelBlue3', foreground='black')
+        self.calendar.tag_config('3', background='SteelBlue2', foreground='black')
+        self.calendar.tag_config('4', background='SteelBlue1', foreground='black')
+        self.calendar.tag_config('5', background='turquoise', foreground='black')
+        self.calendar.tag_config('6', background='aquamarine', foreground='black')
+        self.calendar.tag_config('7', background='SpringGreen1', foreground='black')
+        self.calendar.tag_config('8', background='SpringGreen2', foreground='black')
+        self.calendar.tag_config('9', background='SpringGreen3', foreground='black')
+        self.calendar.tag_config('10', background="SpringGreen4", foreground='black')
 
         #button to return to the main page
         self.back_button = tk.Button(self, text="Back to Main Page", command=lambda: controller.show_frame(StartPage))
@@ -209,25 +210,25 @@ class RateDayPage(tk.Frame):
         self.back_button.pack(pady = 5)
 
      
-        self.button1 = tk.Button(self, text="1", foreground='white',
+        self.button1 = tk.Button(self, text="1", foreground='black',
                                  command=lambda: self.button_clicked(1), background='SteelBlue4')
-        self.button2 = tk.Button(self, text="2", foreground='white',
+        self.button2 = tk.Button(self, text="2", foreground='black',
                                  command=lambda: self.button_clicked(2), background='SteelBlue3')
-        self.button3 = tk.Button(self, text="3", foreground='white',
+        self.button3 = tk.Button(self, text="3", foreground='black',
                                  command=lambda: self.button_clicked(3), background='SteelBlue2')
-        self.button4 = tk.Button(self, text="4", foreground='white',
+        self.button4 = tk.Button(self, text="4", foreground='black',
                                  command=lambda: self.button_clicked(4), background='SteelBlue1')
-        self.button5 = tk.Button(self, text="5", foreground='white',
+        self.button5 = tk.Button(self, text="5", foreground='black',
                                  command=lambda: self.button_clicked(5), bg = 'turquoise') 
-        self.button6 = tk.Button(self, text="6", foreground='white',
+        self.button6 = tk.Button(self, text="6", foreground='black',
                                  command=lambda: self.button_clicked(6), bg = 'aquamarine')
-        self.button7 = tk.Button(self, text="7", foreground='white',
+        self.button7 = tk.Button(self, text="7", foreground='black',
                                  command=lambda: self.button_clicked(7), bg = "SpringGreen1")
-        self.button8 = tk.Button(self, text="8", foreground='white',
+        self.button8 = tk.Button(self, text="8", foreground='black',
                                  command=lambda: self.button_clicked(8), bg = "SpringGreen2")
-        self.button9 = tk.Button(self, text="9",foreground='white', 
+        self.button9 = tk.Button(self, text="9",foreground='black', 
                                  command=lambda: self.button_clicked(9), bg = "SpringGreen3")
-        self.button10 = tk.Button(self, text="10", foreground='white',
+        self.button10 = tk.Button(self, text="10", foreground='black',
                                   command=lambda: self.button_clicked(10), bg = "SpringGreen4")
 
     
