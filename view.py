@@ -26,7 +26,7 @@ QUALT_RES = load_data("csv/qualitative_responses.csv", ["date", "question_#", "r
 CURRENT_QNT_RES = {}
 
 LARGE_FONT = ("Comic Sans", 14, "bold")
-OVERLAY = ['./overlay/pic_1.jpg','./overlay/pic_2.jpg','./overlay/pic_3.jpg','./overlay/pic_4.jpg',,'./overlay/pic_5.jpg','./overlay/pic_6.jpg']
+OVERLAY = ['./overlay/pic_1.jpg', './overlay/pic_2.jpg', './overlay/pic_3.jpg', './overlay/pic_4.jpg', './overlay/pic_5.jpg', './overlay/pic_6.jpg']
 
 
 class App(tk.Tk):
@@ -41,7 +41,7 @@ class App(tk.Tk):
         container.grid_propagate(False)
 
 
-        self.image = Image.open('./overlay/pic_3.jpg')
+        self.image = Image.open(rand_quote(OVERLAY))
         self.python_image = ImageTk.PhotoImage(self.image)
 
         ttk.Label(self, image=self.python_image).pack()
