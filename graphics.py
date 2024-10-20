@@ -84,20 +84,7 @@ from PIL import Image, ImageTk
 root = tk.Tk()
 root.geometry("600x600")
 
-image_path = ['overlay/pic_1.jpg','overlay/pic_2.jpg','overlay/pic_3.jpg']
-
-# Make sure to provide a valid image path
-print(rand_quote(image_path))
-
-
-try:
-    image = Image.open(rand_quote(image_path))  # Open the image file
-    photo = ImageTk.PhotoImage(image)  # Convert the image to a PhotoImage object
-except Exception as e:
-    print(f"Error loading image: {e}")
-
-image_label = tk.Label(root, image=photo)
-image_label.pack(pady=20)  # Pack the label into the window with some padding
+ # Pack the label into the window with some padding
 
 # Run the application
 root.mainloop()

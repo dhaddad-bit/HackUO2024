@@ -88,5 +88,5 @@ def inpt_as_number(input_string):
     
     raise ValueError(f"We were kind of looking for a quantitative answer, but '{i}' is not...\nDid you mean to write that?")
 
-a = load_data(quant_q_a, ["date","question_#","response"])
-print(a)
+# a = load_data(quant_q_a, ["date","question_#","response"])
+# print(a)
