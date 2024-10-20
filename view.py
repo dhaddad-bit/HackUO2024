@@ -32,7 +32,7 @@ OVERLAY = ['./overlay/pic_1.jpg', './overlay/pic_2.jpg', './overlay/pic_3.jpg', 
 class App(tk.Tk):
 
     def __init__(self, *args, **kwargs):
-        
+        a = rand_quote(OVERLAY)
         tk.Tk.__init__(self, *args, **kwargs)
         self.geometry("700x800")
         container = tk.Frame(self, width=700, height=800)
@@ -41,14 +41,14 @@ class App(tk.Tk):
         container.grid_propagate(False)
 
 
-        self.image = Image.open(rand_quote(OVERLAY))
+        self.image = Image.open(a)
         self.python_image = ImageTk.PhotoImage(self.image)
 
         ttk.Label(self, image=self.python_image).pack()
+        # self.image.pack()
 
-
-        container.pack(side="top", fill="both", expand = True)
-        container.grid_propagate(False)
+        # container.pack(side="top", fill="both", expand = True)
+        # container.grid_propagate(False)
 
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
