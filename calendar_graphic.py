@@ -52,7 +52,7 @@ class App(tk.Tk):
 
         self.frames = {}
 
-        for F in (StartPage, CalendarPage, PageTwo):
+        for F in (StartPage, CalendarPage, RateDayPage, QualPage, QuanPage):
             frame = F(container, self)
             self.frames[F] = frame
 
@@ -77,22 +77,35 @@ class StartPage(tk.Frame):
         label.pack(pady=10,padx=10)
 
         self.calendar_frame = None
-        button = tk.Button(self, text="Calendar",
+        button = tk.Button(self, text="View Calendar",
                             command=lambda: controller.show_frame(CalendarPage))
 
-        button.pack()
+        button.pack(pady=10)
 
-        button = tk.Button(self, text="Page Two",
-                           command=lambda: controller.show_frame(PageTwo))
-        button.pack()
+        button = tk.Button(self, text="Rate Your Day",
+                           command=lambda: controller.show_frame(RateDayPage))
+        button.pack(pady=10)
+
+        button = tk.Button(self, text="Short-Answer Check-In",
+                           command=lambda: controller.show_frame(QualPage))
+        button.pack(pady=10)
+
+        button = tk.Button(self, text="Numerical Check-In",
+                           command=lambda: controller.show_frame(QuanPage))
+        button.pack(pady=10)
 
 class CalendarPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
 
+
+        #label for calendar
+        self.label = tk.Label(self, text="CALENDAR")
+        self.label.pack(pady=10)
+
         # Create a Calendar widget
         self.calendar = Calendar(self)
-        self.calendar.bind("<<CalendarSelected>>", )
+        self.calendar.bind("<<CalendarSelected>>", self.open_new_window)
         self.calendar.pack(fill="both", expand=True)
 
         self.calendar.tag_config('1', background='SteelBlue4', foreground='white')
@@ -106,22 +119,22 @@ class CalendarPage(tk.Frame):
         self.calendar.tag_config('9', background='SpringGreen3', foreground='white')
         self.calendar.tag_config('10', background="SpringGreen4", foreground='white')
 
-        # Label to display the selected date
-        self.date_label = tk.Label(self, text="")
-        self.date_label.pack(pady=10)
 
         # Button to return to the main page
         self.back_button = tk.Button(self, text="Back to Main Page", command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
 
-    def open_new_window(self):
+    def open_new_window(self, event):
         new_window = tk.Toplevel(self)
         new_window.title("Hey!!")
+
+        label = tk.Label(new_window, text="WHERE TEXT FROM EVENTS GO")
+        label.pack()
 
         close_button = tk.Button(new_window, text="Close", command=new_window.destroy)
         close_button.pack(pady=10)
 
-class PageTwo(tk.Frame):
+class RateDayPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -164,7 +177,21 @@ class PageTwo(tk.Frame):
         self.values[i-1].config(text=f"You selected button {i}")
         DIC["rating"] = str(i)
         print(DIC["rating"])
+
+class QualPage(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
     
+        self.back_button = tk.Button(self, text="Back to Main Page",
+                                     command=lambda: controller.show_frame(StartPage))
+        
+class QuanPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+    
+        self.back_button = tk.Button(self, text="Back to Main Page",
+                                     command=lambda: controller.show_frame(StartPage))
 
 if __name__ == '__main__':
     app = App()
