@@ -20,7 +20,6 @@ print(s.question_pool())
 
 def main():
     #app = WellnessTracker() 
->>>>>>> 6762cf08560808f2166d75ff38fef3de9398c912
 
 
 
