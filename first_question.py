@@ -1,5 +1,4 @@
 import csv
-import elements
 import os
 
 
@@ -18,7 +17,7 @@ def csv_file_exists(filename):
     #read_word reads from csv file, takes a Words object
     # and turns ine into word, and appends to all.
 
-def read_word(filename, lst: "Survey", key):
+def read_question(filename, dict, key):
     """reads line in file converts to Word saves to Words.all"""
     if csv_file_exists(filename):
             
@@ -31,16 +30,16 @@ def read_word(filename, lst: "Survey", key):
 
                 new = q_class(key)
 
-                lst.append_main(new)#saving to .all
-            return lst
+                #fix me.append_main(new)#saving to .all
+            return dict
     else:
         with open(filename, 'w', encoding='utf-8', newline='') as f:
             writer = csv.DictWriter(f, key)
             writer.writeheader()
-            return lst
+            return dict
 
-def q_class(key):
-    for item in range(len(key)):
+# def q_class(key):
+#     for item in range(len(key)):
 
 
 key=['time', 'answer']
