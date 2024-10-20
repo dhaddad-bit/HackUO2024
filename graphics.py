@@ -1,6 +1,6 @@
 import tkinter as tk 
 import tkinter as ttk
-from questions import rand_quote
+#from questions import rand_quote
 
 
 quant_q = "CSV/quantitative.csv"
@@ -84,11 +84,23 @@ print(rgb_value)
 # root.mainloop()
 
 
-p = "two times"
+p = "twenty imes"
+from word2number import w2n
 
-def ipt_as_number(input):
+def inpt_as_number(input_string):
     """Takes quantitative input and extrapolates number value from entry"""
-    input = input.split()
-    print(input)
+    input_list = input_string.split()
+    print(input_list)
 
-ipt_as_number(p)
+    for i in input_list:
+        try:
+            return int(i)
+        except ValueError:
+            try:
+                return w2n.word_to_num(i)
+            except ValueError:
+                raise ValueError(f"We were kind of looking for a quantitative answer, but '{i}' is not...\nDid you mean to write that?")
+    
+    raise ValueError(f"We were kind of looking for a quantitative answer, but '{i}' is not...\nDid you mean to write that?")
+
+print(inpt_as_number(p))
