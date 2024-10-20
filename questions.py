@@ -4,7 +4,7 @@ import datetime
 quant_q = "CSV/quantitative.csv"
 qual_q = "CSV/qualitative.csv"
 
-from survey import Survey
+from Survey import Survey
 s = Survey()
 
 s.reader(quant_q)
