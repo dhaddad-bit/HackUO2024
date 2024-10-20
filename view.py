@@ -6,6 +6,7 @@ from tkcalendar import Calendar, DateEntry
 import datetime
 
 import csv
+import word2number
 
 from questions import *
 
@@ -90,17 +91,26 @@ class CalendarPage(tk.Frame):
         self.label = tk.Label(self, text="CALENDAR")
         self.label.pack(pady=10)
 
+        self.d = {}
+
         # Create a Calendar widget
-        self.calendar = Calendar(self)
+        self.calendar = Calendar(self, date_pattern="yyyy-mm-dd")
         self.calendar.bind("<<CalendarSelected>>", self.open_new_window)
         self.calendar.pack(fill="both", expand=True)
+
 
         for i in range(len(PAST_RATES)):
             self.calendar.calevent_create(date=PAST_RATES[i][0], text="", tags=PAST_RATES[i][1])
         
         for i in range(len(QUANT_RES)):
-            self.
 
+            time = QUANT_RES[i][0].strftime("%Y-%m-%d")
+            if time in self.d.keys():
+                self.d[time].append((QUANT_RES[i][1], QUANT_RES[i][2]))
+            else:
+                self.d[time] = []
+                self.d[time].append((QUANT_RES[i][1], QUANT_RES[i][2]))
+        
         self.calendar.tag_config('1', background='SteelBlue4', foreground='white')
         self.calendar.tag_config('2', background='SteelBlue3', foreground='white')
         self.calendar.tag_config('3', background='SteelBlue2', foreground='white')
@@ -112,18 +122,27 @@ class CalendarPage(tk.Frame):
         self.calendar.tag_config('9', background='SpringGreen3', foreground='white')
         self.calendar.tag_config('10', background="SpringGreen4", foreground='white')
 
-
-        # Button to return to the main page
+        #button to return to the main page
         self.back_button = tk.Button(self, text="Back to Main Page", command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
 
     def open_new_window(self, event):
+        date = self.calendar.get_date()
+        print(date)
+        print(list(self.d.keys()))
+
         new_window = tk.Toplevel(self)
-        new_window.title("Hey!!")
 
-        label = tk.Label(new_window, text="WHERE TEXT FROM EVENTS GO")
-        label.pack()
+        self.label = tk.Label(new_window, text="Numerical Check-Ins")
+        self.label.pack()
+        for i in range(len(self.d[date])):
+            tup = self.d[date][i]
+            self.label = tk.Label(new_window, text=tup[0])
+            self.label.pack()
+            self.label = tk.Label(new_window, text=tup[1])
+            self.label.pack()
 
+    
         close_button = tk.Button(new_window, text="Close", command=new_window.destroy)
         close_button.pack(pady=10)
 
@@ -226,6 +245,7 @@ class QuanPage(tk.Frame):
 
     def take_input(self, txt):
         self.inp = txt.get("1.0", "end-1c")
+        self.inp = inpt_as_number(self.inp)
         self.res_dict[self.question[1]] = self.inp
         txt.delete('1.0', tk.END)
 
