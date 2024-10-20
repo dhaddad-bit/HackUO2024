@@ -268,7 +268,7 @@ class RateDayPage(tk.Frame):
             self.values[i].pack(side= tk.LEFT, padx=5)
         
     def button_clicked(self, i, event=None):
-        self.values[i-1].config(text=f"You selected button {i}")
+        self.values[i-1].config(text="Ya"+"y"*i)
         DIC["rating"] = str(i)
         self.update_calendar()
 
