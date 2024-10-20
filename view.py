@@ -26,7 +26,7 @@ QUALT_RES = load_data("csv/qualitative_responses.csv", ["date", "question_#", "r
 CURRENT_QNT_RES = {}
 
 LARGE_FONT = ("Comic Sans", 14, "bold")
-OVERLAY = ['./overlay/pic_1.jpg','./overlay/pic_2.jpg','./overlay/pic_3.jpg']
+OVERLAY = ['./overlay/pic_1.jpg','./overlay/pic_2.jpg','./overlay/pic_3.jpg','./overlay/pic_4.jpg',,'./overlay/pic_5.jpg','./overlay/pic_6.jpg']
 
 
 class App(tk.Tk):
