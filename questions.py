@@ -66,11 +66,11 @@ def save_inputs(words, filename):
 
 
 def inpt_as_number(input_string):
-    import word2number as w2n
+    from word2number import w2n
 
     """Takes quantitative input and extrapolates number value from entry"""
     input_list = input_string.split()
-    print(input_list)
+    #print(input_list)
 
     for i in input_list:
         try:
