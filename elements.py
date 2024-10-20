@@ -4,6 +4,7 @@ from enum import Enum
 
 class EventKindQuestion(Enum):
 
+    no_question = 0
     question_opened = 1
     
     question_answered = 2
