@@ -31,6 +31,7 @@ class App(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
+
         self.frames = {}
 
         for F in (StartPage, CalendarPage, RateDayPage, 
@@ -121,8 +122,6 @@ class CalendarPage(tk.Frame):
             else:
                 self.d_qn[time] = []
                 self.d_qn[time].append((QUALT_RES[i][1], QUALT_RES[i][2]))
-
-        print(self.d_qn)
         
         self.calendar.tag_config('1', background='SteelBlue4', foreground='white')
         self.calendar.tag_config('2', background='SteelBlue3', foreground='white')
@@ -236,6 +235,8 @@ class RateDayPage(tk.Frame):
         self.values[i-1].config(text=f"You selected button {i}")
         DIC["rating"] = str(i)
         self.update_calendar()
+
+        save_inputs()
 
     def update_calendar(self):
         cal = self.controller.frames[CalendarPage]
