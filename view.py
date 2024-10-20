@@ -246,8 +246,9 @@ class RateDayPage(tk.Frame):
 
         date = datetime.datetime.today().strftime("%Y-%m-%d")
 
-        if search_headercolumn("csv/rate_day.csv", 0, date)[0]:
-            pass
+        if search_headercolumn("csv/rate_day.csv", 0, date):
+            inp = [date, i]
+            replace_line("csv/rate_day.csv", search_headercolumn("csv/rate_day.csv", 0, date)[1], inp)
         else:
             save_inputs([date, i], "csv/rate_day.csv")
 

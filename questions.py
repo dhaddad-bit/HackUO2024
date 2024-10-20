@@ -80,6 +80,17 @@ def search_headercolumn(file: str, column: int, keyword: str):
                 return (True, idx)
     
         return False
+    
+def replace_line(file: str, line_num: int, new_data):
+    with open(file, 'r') as f:
+        reader = csv.reader(f)
+        rows = list(reader)
+    
+    rows[line_num - 1] = new_data
+
+    with open(file, 'w', newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(rows)
 
 def inpt_as_number(input_string):
     from word2number import w2n
