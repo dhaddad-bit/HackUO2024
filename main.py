@@ -4,7 +4,8 @@ s = Survey(10, 'quantitative')
 print(s.question_pool())
 
 
-
+def main():
+    
 
 
 
