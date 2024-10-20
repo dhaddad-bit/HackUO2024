@@ -5,37 +5,6 @@ from tkinter import ttk
 from tkcalendar import Calendar, DateEntry
 import datetime
 
-#root = tk.Tk()
-
-
-#open new window (display events?)
-
-# def create_cal():
-#     cal = Calendar(root, font="Arial 14", cursor="hand1")
-
-# #test dates
-#     dates = [(datetime.date(2024, 10, 18), '5'), (datetime.date(2024, 10, 15), '7'),
-#          (datetime.date(2024, 10, 17), '3'), (datetime.date(2024, 10, 16), '10')]
-    
-#     cal.bind("<<CalendarSelected>>", open_new_window(cal))
-#     cal.pack(fill="both", expand=True)
-
-# #tag configs
-#     cal.tag_config('1', background='SteelBlue4', foreground='white')
-#     cal.tag_config('2', background='SteelBlue3', foreground='white')
-#     cal.tag_config('3', background='SteelBlue2', foreground='white')
-#     cal.tag_config('4', background='SteelBlue1', foreground='white')
-#     cal.tag_config('5', background='turquoise', foreground='white')
-#     cal.tag_config('6', background='aquamarine', foreground='white')
-#     cal.tag_config('7', background='SpringGreen1', foreground='white')
-#     cal.tag_config('8', background='SpringGreen2', foreground='white')
-#     cal.tag_config('9', background='SpringGreen3', foreground='white')
-#     cal.tag_config('10', background="SpringGreen4", foreground='white')
-
-# #testing-creating events from previous dates
-#     for i in range(len(dates)):
-#         cal.calevent_create(dates[i][0], text="Hey!", tags=dates[i][1])
-
 DIC = {}
 
 class App(tk.Tk):
@@ -52,7 +21,8 @@ class App(tk.Tk):
 
         self.frames = {}
 
-        for F in (StartPage, CalendarPage, RateDayPage, QualPage, QuanPage):
+        for F in (StartPage, CalendarPage, RateDayPage, 
+                  QualPage, QuanPage, InspQuPage, EditPage, TrendPage):
             frame = F(container, self)
             self.frames[F] = frame
 
@@ -62,16 +32,15 @@ class App(tk.Tk):
 
     def show_frame(self, cont):
 
+        self.frames[cont].update()
         frame = self.frames[cont]
         frame.tkraise()
 
-    def store_data(event):
-        dic = {}
-        print("")
 
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
+
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Start Page")
         label.pack(pady=10,padx=10)
@@ -94,10 +63,22 @@ class StartPage(tk.Frame):
                            command=lambda: controller.show_frame(QuanPage))
         button.pack(pady=10)
 
+        button = tk.Button(self, text="Inspirational Quotes",
+                            command=lambda: controller.show_frame(InspQuPage))
+        button.pack(pady=10)
+
+        button = tk.Button(self, text="Add Your Own Stuff",
+                            command=lambda: controller.show_frame(EditPage))
+        button.pack(pady=10)
+
+        button = tk.Button(self, text="Trends",
+                            command=lambda: controller.show_frame(TrendPage))
+        button.pack(pady=10)
+
+
 class CalendarPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
-
 
         #label for calendar
         self.label = tk.Label(self, text="CALENDAR")
@@ -107,6 +88,7 @@ class CalendarPage(tk.Frame):
         self.calendar = Calendar(self)
         self.calendar.bind("<<CalendarSelected>>", self.open_new_window)
         self.calendar.pack(fill="both", expand=True)
+
 
         self.calendar.tag_config('1', background='SteelBlue4', foreground='white')
         self.calendar.tag_config('2', background='SteelBlue3', foreground='white')
@@ -134,9 +116,14 @@ class CalendarPage(tk.Frame):
         close_button = tk.Button(new_window, text="Close", command=new_window.destroy)
         close_button.pack(pady=10)
 
+    def update_calendar(self, date):
+        self.calendar.calevent_create(date, text="", tags=DIC["rating"])
+
 class RateDayPage(tk.Frame):
 
     def __init__(self, parent, controller):
+        self.controller = controller
+
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Rate Your Day!")
         label.pack(pady=10,padx=10)
@@ -176,7 +163,11 @@ class RateDayPage(tk.Frame):
     def button_clicked(self, i, event=None):
         self.values[i-1].config(text=f"You selected button {i}")
         DIC["rating"] = str(i)
-        print(DIC["rating"])
+        self.update_calendar()
+
+    def update_calendar(self):
+        cal = self.controller.frames[CalendarPage]
+        cal.update_calendar(datetime.date.today())
 
 class QualPage(tk.Frame):
 
@@ -185,6 +176,7 @@ class QualPage(tk.Frame):
     
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
+        self.back_button.pack(pady=10)
         
 class QuanPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -192,6 +184,31 @@ class QuanPage(tk.Frame):
     
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
+        self.back_button.pack(pady=10)
+
+class InspQuPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+    
+        self.back_button = tk.Button(self, text="Back to Main Page",
+                                     command=lambda: controller.show_frame(StartPage))
+        self.back_button.pack(pady=10)
+
+class EditPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+    
+        self.back_button = tk.Button(self, text="Back to Main Page",
+                                     command=lambda: controller.show_frame(StartPage))
+        self.back_button.pack(pady=10)   
+
+class TrendPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+    
+        self.back_button = tk.Button(self, text="Back to Main Page",
+                                     command=lambda: controller.show_frame(StartPage))
+        self.back_button.pack(pady=10) 
 
 if __name__ == '__main__':
     app = App()
