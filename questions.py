@@ -1,6 +1,6 @@
 import csv
 import datetime
-
+import word2number as w2n
 quant_q = "CSV/quantitative.csv"
 qual_q = "CSV/qualitative.csv"
 
@@ -64,3 +64,20 @@ def save_inputs(words, filename):
         writer = csv.writer(f)
         writer.writerow(words)
         f.close()
+
+
+def inpt_as_number(input_string):
+    """Takes quantitative input and extrapolates number value from entry"""
+    input_list = input_string.split()
+    print(input_list)
+
+    for i in input_list:
+        try:
+            return int(i)
+        except ValueError:
+            try:
+                return w2n.word_to_num(i)
+            except ValueError:
+                raise ValueError(f"We were kind of looking for a quantitative answer, but '{i}' is not...\nDid you mean to write that?")
+    
+    raise ValueError(f"We were kind of looking for a quantitative answer, but '{i}' is not...\nDid you mean to write that?")
