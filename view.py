@@ -25,8 +25,11 @@ QUANT_RES = load_data("csv/quantitative_responses.csv", ["date", "question_#", "
 QUALT_RES = load_data("csv/qualitative_responses.csv", ["date", "question_#", "response"])
 CURRENT_QNT_RES = {}
 
-LARGE_FONT = ("Comic Sans", 14, "bold")
-OVERLAY = ['./overlay/pic_1.jpg', './overlay/pic_2.jpg', './overlay/pic_3.jpg', './overlay/pic_4.jpg', './overlay/pic_5.jpg', './overlay/pic_6.jpg']
+LARGE_FONT = ("Arial", 25, "bold")
+BIGGER_FONT = ('Arial', 18, 'bold')
+MED_FONT = ("Arial", 14, "bold")
+OVERLAY = ['./overlay/pic_1.jpg', './overlay/pic_2.jpg', './overlay/pic_3.jpg', './overlay/pic_4.jpg',
+            './overlay/pic_5.jpg', './overlay/pic_6.jpg', './overlay/pic_7.jpg', './overlay/pic_8.jpg', './overlay/pic_9.jpg', './overlay/pic_10.jpg']
 
 a = rand_quote(OVERLAY)
 
@@ -78,42 +81,47 @@ class StartPage(tk.Frame):
 
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Welcome!", font=LARGE_FONT)
-        label.pack(pady=10,padx=10)
-
-        self.calendar_frame = None
-        button = tk.Button(self, text="View Calendar",
-                            command=lambda: controller.show_frame(CalendarPage))
-
-        button.pack(pady=10)
+        label.pack(pady=(15, 15), padx=10)
 
         button = tk.Button(self, text="Rate Your Day",
                            command=lambda: controller.show_frame(RateDayPage))
-        button.pack(pady=10)
+        button.pack(pady=(5, 30) , ipady=5, ipadx=5)
 
-        button = tk.Button(self, text="Short-Answer Check-In",
+
+
+        check_in_frame = tk.Frame(self)
+        button = tk.Button(check_in_frame, text="Short-Answer Check-In",
                            command=lambda: controller.show_frame(QualPage))
-        button.pack(pady=10)
+        button.pack(ipady=5, ipadx=5, padx=10, side='left')
 
-        button = tk.Button(self, text="Numerical Check-In",
+        button = tk.Button(check_in_frame, text="Numerical Check-In",
                            command=lambda: controller.show_frame(QuanPage))
-        button.pack(pady=10)
+        button.pack(ipady=5, side='right')
+        check_in_frame.pack(pady=5, ipadx=5)
 
-        button = tk.Button(self, text="Inspirational Quotes",
-                            command=lambda: controller.show_frame(InspQuPage))
-        button.pack(pady=10)
+
+
+        button = tk.Button(self, text="Create New Question",
+                           command=lambda: controller.show_frame(EditPage))
+        button.pack(pady=(5, 30), ipady=5, ipadx=5)
+
+        self.calendar_frame = None
+        button = tk.Button(self, text="Calendar",
+                           command=lambda: controller.show_frame(CalendarPage))
+        button.pack(pady=5, ipady=5, ipadx=5)
 
         button = tk.Button(self, text="Trends",
-                            command=lambda: controller.show_frame(TrendPage))
-        button.pack(pady=10)
+                           command=lambda: controller.show_frame(TrendPage))
+        button.pack(pady=5, ipady=5, ipadx=5)
 
-        button = tk.Button(self, text="Add New Questions",
-                            command=lambda: controller.show_frame(EditPage))
-        button.pack(pady=10)
+        button = tk.Button(self, text="Quotes",
+                           command=lambda: controller.show_frame(InspQuPage))
+        button.pack(pady=5, ipady=5, ipadx=5)
 
         image = Image.open(a)  # Provide the path to your image
         self.photo = ImageTk.PhotoImage(image)
         image_label = tk.Label(self, image=self.photo)
-        image_label.pack(pady=10)
+        image_label.pack(pady=30)
 
 
 class CalendarPage(tk.Frame):
@@ -222,50 +230,46 @@ class RateDayPage(tk.Frame):
         self.controller = controller
 
         tk.Frame.__init__(self, parent)
-        
-        self.back_button = tk.Button(self, text = "Back to Main Page",
+
+
+        self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
-        self.back_button.pack(pady = 15, padx=5)
+        self.back_button.pack(pady=15, ipady=5)
 
-        label = tk.Label(self, text="Rate Your Day!")
-        label.pack(pady=(150, 10),padx=10)
-
+        label = tk.Label(self, font=LARGE_FONT, text="How has your day been today?")
+        label.pack(pady=(150, 10), padx=10)
 
         button_frame = tk.Frame(self)
 
-        self.button1 = tk.Button(button_frame, text="1", foreground='black',
+        self.button1 = tk.Button(button_frame, text="1", foreground='white',
                                  command=lambda: self.button_clicked(1), background='SteelBlue4')
-        self.button2 = tk.Button(button_frame, text="2", foreground='black',
+        self.button2 = tk.Button(button_frame, text="2", foreground='white',
                                  command=lambda: self.button_clicked(2), background='SteelBlue3')
-        self.button3 = tk.Button(button_frame, text="3", foreground='black',
+        self.button3 = tk.Button(button_frame, text="3", foreground='white',
                                  command=lambda: self.button_clicked(3), background='SteelBlue2')
-        self.button4 = tk.Button(button_frame, text="4", foreground='black',
+        self.button4 = tk.Button(button_frame, text="4", foreground='white',
                                  command=lambda: self.button_clicked(4), background='SteelBlue1')
-        self.button5 = tk.Button(button_frame, text="5", foreground='black',
-                                 command=lambda: self.button_clicked(5), bg = 'turquoise') 
-        self.button6 = tk.Button(button_frame, text="6", foreground='black',
-                                 command=lambda: self.button_clicked(6), bg = 'aquamarine')
-        self.button7 = tk.Button(button_frame, text="7", foreground='black',
-                                 command=lambda: self.button_clicked(7), bg = "SpringGreen1")
-        self.button8 = tk.Button(button_frame, text="8", foreground='black',
-                                 command=lambda: self.button_clicked(8), bg = "SpringGreen2")
-        self.button9 = tk.Button(button_frame, text="9",foreground='black', 
-                                 command=lambda: self.button_clicked(9), bg = "SpringGreen3")
-        self.button10 = tk.Button(button_frame, text="10", foreground='black',
-                                  command=lambda: self.button_clicked(10), bg = "SpringGreen4")
-        
+        self.button5 = tk.Button(button_frame, text="5", foreground='white',
+                                 command=lambda: self.button_clicked(5), bg='turquoise')
+        self.button6 = tk.Button(button_frame, text="6", foreground='white',
+                                 command=lambda: self.button_clicked(6), bg='aquamarine')
+        self.button7 = tk.Button(button_frame, text="7", foreground='white',
+                                 command=lambda: self.button_clicked(7), bg="SpringGreen1")
+        self.button8 = tk.Button(button_frame, text="8", foreground='white',
+                                 command=lambda: self.button_clicked(8), bg="SpringGreen2")
+        self.button9 = tk.Button(button_frame, text="9", foreground='white',
+                                 command=lambda: self.button_clicked(9), bg="SpringGreen3")
+        self.button10 = tk.Button(button_frame, text="10", foreground='white',
+                                  command=lambda: self.button_clicked(10), bg="SpringGreen4")
+
         self.values = [self.button1, self.button2, self.button3, self.button4,
-                    self.button5, self.button6, self.button7, self.button8, 
-                    self.button9, self.button10]
+                       self.button5, self.button6, self.button7, self.button8,
+                       self.button9, self.button10]
 
         for i in range(10):
-            self.values[i].pack(side=tk.LEFT, ipadx = 8, padx=5, pady=(50,0))
+            self.values[i].pack(side=tk.LEFT, padx=5, pady=(20, 0), ipadx=8)
+
         button_frame.pack()
-    
-
-
-        for i in range(10):
-            self.values[i].pack(side= tk.LEFT, padx=5)
         
     def button_clicked(self, i, event=None):
         self.values[i-1].config(text="Ya"+"y"*i)
@@ -294,26 +298,24 @@ class QualPage(tk.Frame):
 
         self.res_dict = {}
 
-    
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
-        self.back_button.pack(pady=10)
+        self.back_button.pack(pady=10, ipady=5)
 
         self.question = rand_quote(load_quotes("csv/qualitative.csv", "Questions"))
-        self.label = tk.Label(self, text=self.question[1])
-        self.label.pack(pady=5)
+        self.label = tk.Label(self, font=MED_FONT,text=self.question[1])
+        self.label.pack(pady=(25, 35))
 
-        self.txt = tk.Text(self, height=10,
-                             width=25)
-        self.txt.pack()
+        self.txt = tk.Text(self, height=10, width=25)
+        self.txt.pack(ipady=40, ipadx=80, pady=(0, 30))
 
-        self.quote_button = tk.Button(self, text="Save",
-                                        command=lambda: self.take_input(self.txt))
-        self.quote_button.pack(pady=5)
+        button_frame = tk.Frame(self)
+        self.quote_button = tk.Button(button_frame, text="Save", command=lambda: self.take_input(self.txt))
+        self.quote_button.pack(ipady=5, padx=8, side='left')
 
-        self.quote_button = tk.Button(self, text="New Question",
-                                      command=lambda: self.get_new_survey(self.label))
-        self.quote_button.pack(pady=5)
+        self.quote_button = tk.Button(button_frame, text="Next Question", command=lambda: self.get_new_survey(self.label))
+        self.quote_button.pack(ipady=5, side='right')
+        button_frame.pack(pady=5)
 
     def get_new_survey(self, label):
 
@@ -348,23 +350,23 @@ class QuanPage(tk.Frame):
 
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
-        self.back_button.pack(pady=10)
+        self.back_button.pack(pady=10, ipady=5)
 
         self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))
-        self.label = tk.Label(self, text=self.question[1], bg="light blue")
-        self.label.pack(pady=5)
+        self.label = tk.Label(self, font=MED_FONT, text=self.question[1])
+        self.label.pack(pady=(25, 35))
 
-        self.txt = tk.Text(self, height=5,
-                             width=25)
-        self.txt.pack()
+        self.txt = tk.Text(self, height=1, width=5)
+        self.txt.pack(ipady=5, ipadx=40, pady=(0, 30))
 
-        self.quote_button = tk.Button(self, text="Save",
-                                        command=lambda: self.take_input(self.txt))
-        self.quote_button.pack(pady=5)
+        button_frame = tk.Frame(self)
+        self.quote_button = tk.Button(button_frame, text="Save", command=lambda: self.take_input(self.txt))
+        self.quote_button.pack(ipady=5, side='left')
 
-        self.quote_button = tk.Button(self, text="New Question",
+        self.quote_button = tk.Button(button_frame, text="Next Question",
                                       command=lambda: self.get_new_survey(self.label))
-        self.quote_button.pack(pady=5)
+        self.quote_button.pack(ipady=5, side='right')
+        button_frame.pack(pady=5)
 
     def get_new_survey(self, label):
 
@@ -392,17 +394,17 @@ class QuanPage(tk.Frame):
 class InspQuPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-    
+
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
-        self.back_button.pack(pady=10)
+        self.back_button.pack(pady=(15, 200), ipady=5)
 
-        self.label = tk.Label(self, text= rand_quote(load_quotes("csv/inspirational_quotes.csv", "Quote"))[1])
+        self.label = tk.Label(self, font=BIGGER_FONT, text=rand_quote(load_quotes("csv/inspirational_quotes.csv", "Quote"))[1])
         self.label.pack(pady=5)
 
         self.quote_button = tk.Button(self, text="New Quote",
                                       command=lambda: self.get_new_quote(self.label))
-        self.quote_button.pack(pady=5)
+        self.quote_button.pack(pady=5, ipady=5)
 
     def get_new_quote(self, label):
         label.config(text=rand_quote(load_quotes("csv/inspirational_quotes.csv", "Quote"))[1])
@@ -411,33 +413,33 @@ class InspQuPage(tk.Frame):
 class EditPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-    
+
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
-        self.back_button.pack(pady=10)
+        self.back_button.pack(pady=10, ipady=5)
 
-        self.label = tk.Label(self, text="ADD YOUR OWN QUESTIONS")  
-        self.label.pack(pady=5) 
+        self.label = tk.Label(self, font=LARGE_FONT, text="ADD YOUR OWN QUESTIONS")
+        self.label.pack(pady=(5, 50))
 
-        self.label = tk.Label(self, text="Enter New Numerical Check-In")
+        self.label = tk.Label(self, text="Enter New Numerical Question:")
         self.label.pack(pady=5)
 
-        self.qnq_text = tk.Text(self, height=5, width=25)
+        self.qnq_text = tk.Text(self, height=2, width=50)
         self.qnq_text.pack(pady=5)
 
         self.save_button = tk.Button(self, text="Add Question",
                                      command=lambda: self.save_to_q("num"))
-        self.save_button.pack(pady=10)
+        self.save_button.pack(pady=(10, 50), ipady=5)
 
-        self.label = tk.Label(self, text="Enter New Short Answer Check-In")
+        self.label = tk.Label(self, text="Enter New Short Answer Question:")
         self.label.pack(pady=5)
 
-        self.qlq_text = tk.Text(self, height=5, width=25)
+        self.qlq_text = tk.Text(self, height=2, width=50)
         self.qlq_text.pack(pady=5)
 
         self.save_button = tk.Button(self, text="Add Question",
                                      command=lambda: self.save_to_q("wri"))
-        self.save_button.pack(pady=10)
+        self.save_button.pack(pady=10, ipady=5)
     
     def save_to_q(self, typ):
         if typ == "num":
