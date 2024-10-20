@@ -27,7 +27,7 @@ LARGE_FONT = ("Comic Sans", 14, "bold")
 OVERLAY = ['./overlay/pic_1.jpg','./overlay/pic_2.jpg','./overlay/pic_3.jpg']
 
 # Make sure to provide a valid image path
-a = rand_quote(OVERLAY)
+#a = rand_quote(OVERLAY)
 
 
 
