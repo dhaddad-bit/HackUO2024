@@ -3,26 +3,7 @@ import elements
 import os
 
 
-
-class InitQuestion(Question):
-    def __init__(self, input, answer):
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 def csv_file_exists(filename):
     """

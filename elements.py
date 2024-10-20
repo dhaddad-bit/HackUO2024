@@ -9,7 +9,7 @@ class EventKindQuestion(Enum):
     question_answered = 2
 
 class QuEvent(object):
-    def __init__(self, kind: "EventKindQuestion" ,question: "Question"):
+    def __init__(self, kind: "EventKindQuestion", question: "Question"):
         self.kind = kind
         self.q = question
 
