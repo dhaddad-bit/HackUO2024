@@ -7,35 +7,12 @@ import datetime
 
 import csv
 
+from questions import rand_quote, load_data
+
 DIC = {}
 
-def load_data(filename: str, column_titles: list) -> dict:
-
-    data_list = []
-    row_count = 0
-    with open(filename) as open_file:
-        csv_reader = csv.reader(open_file)
-        header = next(csv_reader)
-    
-        for row in csv_reader:
-            new_list = []
-
-            for title in column_titles:
-                value = row[header.index(title)]
-                if title == 'date':
-                    value = datetime.datetime.strptime(value, '%Y-%m-%d')
-                new_list.append(value)
-
-            data_tuple = tuple(new_list)
-            data_list.append(data_tuple)
-            row_count +=1
-        
-
-    return data_list
-
 PAST_RATES = load_data("csv/rate_day.csv", ["date", "rating"])
-INSP_QUOTES = load_data("csv/inspirational_quotes.csv", ["Quote"])
-print(INSP_QUOTES)
+print(PAST_RATES)
 
 class App(tk.Tk):
 
@@ -226,6 +203,8 @@ class InspQuPage(tk.Frame):
         self.back_button = tk.Button(self, text="Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
+
+
 
 class EditPage(tk.Frame):
     def __init__(self, parent, controller):
