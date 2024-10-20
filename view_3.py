@@ -2,6 +2,10 @@ import tkinter as tk
 import tkinter.tix as tix
 from tkinter import ttk
 
+import tkinter as tk
+import tkinter.tix as tix
+from tkinter import ttk
+
 #from survey import Survey
 from tkcalendar import Calendar, DateEntry
 import datetime
@@ -27,7 +31,7 @@ LARGE_FONT = ("Comic Sans", 14, "bold")
 OVERLAY = ['./overlay/pic_1.jpg','./overlay/pic_2.jpg','./overlay/pic_3.jpg']
 
 # Make sure to provide a valid image path
-#a = rand_quote(OVERLAY)
+a = rand_quote(OVERLAY)
 
 
 
@@ -44,10 +48,10 @@ class App(tk.Tk):
         container.grid_propagate(False)
 
 
-        self.image = Image.open('./overlay/pic_3.jpg')
-        self.python_image = ImageTk.PhotoImage(self.image)
+        # self.image = Image.open('./overlay/pic_3.jpg')
+        # self.python_image = ImageTk.PhotoImage(self.image)
 
-        ttk.Label(self, image=self.python_image).pack()
+        # ttk.Label(self, image=self.python_image).pack()
 
 
         container.grid_rowconfigure(0, weight=1)
@@ -116,7 +120,7 @@ class StartPage(tk.Frame):
                             command=lambda: controller.show_frame(EditPage))
         button.pack(pady=10)
 
-        image = Image.open(f"{a}")  # Provide the path to your image
+        image = Image.open(a)  # Provide the path to your image
         self.photo = ImageTk.PhotoImage(image)
         image_label = tk.Label(self, image=self.photo)
         image_label.pack(pady=10)

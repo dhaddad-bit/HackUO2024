@@ -26,29 +26,30 @@ QUALT_RES = load_data("csv/qualitative_responses.csv", ["date", "question_#", "r
 CURRENT_QNT_RES = {}
 
 LARGE_FONT = ("Comic Sans", 14, "bold")
-OVERLAY = ['./overlay/pic_1.jpg','./overlay/pic_2.jpg','./overlay/pic_3.jpg']
+OVERLAY = ['./overlay/pic_1.jpg', './overlay/pic_2.jpg', './overlay/pic_3.jpg', './overlay/pic_4.jpg', './overlay/pic_5.jpg', './overlay/pic_6.jpg']
 
+a = rand_quote(OVERLAY)
 
 class App(tk.Tk):
 
     def __init__(self, *args, **kwargs):
-        
+
         tk.Tk.__init__(self, *args, **kwargs)
-        self.geometry("700x800")
+        self.geometry("650x750")
         container = tk.Frame(self, width=700, height=800)
 
         container.pack(side="top", fill="both", expand = True)
         container.grid_propagate(False)
 
 
-        self.image = Image.open('./overlay/pic_3.jpg')
+        self.image = Image.open(a)
         self.python_image = ImageTk.PhotoImage(self.image)
 
         ttk.Label(self, image=self.python_image).pack()
+        # self.image.pack()
 
-
-        container.pack(side="top", fill="both", expand = True)
-        container.grid_propagate(False)
+        # container.pack(side="top", fill="both", expand = True)
+        # container.grid_propagate(False)
 
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
@@ -108,6 +109,11 @@ class StartPage(tk.Frame):
         button = tk.Button(self, text="Add New Questions",
                             command=lambda: controller.show_frame(EditPage))
         button.pack(pady=10)
+
+        image = Image.open(a)  # Provide the path to your image
+        self.photo = ImageTk.PhotoImage(image)
+        image_label = tk.Label(self, image=self.photo)
+        image_label.pack(pady=10)
 
 
 class CalendarPage(tk.Frame):
@@ -223,32 +229,38 @@ class RateDayPage(tk.Frame):
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady = 5)
 
-     
-        self.button1 = tk.Button(self, text="1", foreground='black',
-                                 command=lambda: self.button_clicked(1), background='SteelBlue4')
-        self.button2 = tk.Button(self, text="2", foreground='black',
-                                 command=lambda: self.button_clicked(2), background='SteelBlue3')
-        self.button3 = tk.Button(self, text="3", foreground='black',
-                                 command=lambda: self.button_clicked(3), background='SteelBlue2')
-        self.button4 = tk.Button(self, text="4", foreground='black',
-                                 command=lambda: self.button_clicked(4), background='SteelBlue1')
-        self.button5 = tk.Button(self, text="5", foreground='black',
-                                 command=lambda: self.button_clicked(5), bg = 'turquoise') 
-        self.button6 = tk.Button(self, text="6", foreground='black',
-                                 command=lambda: self.button_clicked(6), bg = 'aquamarine')
-        self.button7 = tk.Button(self, text="7", foreground='black',
-                                 command=lambda: self.button_clicked(7), bg = "SpringGreen1")
-        self.button8 = tk.Button(self, text="8", foreground='black',
-                                 command=lambda: self.button_clicked(8), bg = "SpringGreen2")
-        self.button9 = tk.Button(self, text="9",foreground='black', 
-                                 command=lambda: self.button_clicked(9), bg = "SpringGreen3")
-        self.button10 = tk.Button(self, text="10", foreground='black',
-                                  command=lambda: self.button_clicked(10), bg = "SpringGreen4")
+        button_frame = tk.Frame(self)
 
-    
+        self.button1 = tk.Button(button_frame, text="1", foreground='black',
+                                 command=lambda: self.button_clicked(1), background='SteelBlue4')
+        self.button2 = tk.Button(button_frame, text="2", foreground='black',
+                                 command=lambda: self.button_clicked(2), background='SteelBlue3')
+        self.button3 = tk.Button(button_frame, text="3", foreground='black',
+                                 command=lambda: self.button_clicked(3), background='SteelBlue2')
+        self.button4 = tk.Button(button_frame, text="4", foreground='black',
+                                 command=lambda: self.button_clicked(4), background='SteelBlue1')
+        self.button5 = tk.Button(button_frame, text="5", foreground='black',
+                                 command=lambda: self.button_clicked(5), bg = 'turquoise') 
+        self.button6 = tk.Button(button_frame, text="6", foreground='black',
+                                 command=lambda: self.button_clicked(6), bg = 'aquamarine')
+        self.button7 = tk.Button(button_frame, text="7", foreground='black',
+                                 command=lambda: self.button_clicked(7), bg = "SpringGreen1")
+        self.button8 = tk.Button(button_frame, text="8", foreground='black',
+                                 command=lambda: self.button_clicked(8), bg = "SpringGreen2")
+        self.button9 = tk.Button(button_frame, text="9",foreground='black', 
+                                 command=lambda: self.button_clicked(9), bg = "SpringGreen3")
+        self.button10 = tk.Button(button_frame, text="10", foreground='black',
+                                  command=lambda: self.button_clicked(10), bg = "SpringGreen4")
+        
         self.values = [self.button1, self.button2, self.button3, self.button4,
-                         self.button5, self.button6, self.button7, self.button8, 
-                         self.button9, self.button10]
+                    self.button5, self.button6, self.button7, self.button8, 
+                    self.button9, self.button10]
+
+        for i in range(10):
+            self.values[i].pack(side=tk.LEFT, ipadx = 8, padx=5, pady=(50,0))
+        button_frame.pack()
+    
+
 
         for i in range(10):
             self.values[i].pack(side= tk.LEFT, padx=5)
