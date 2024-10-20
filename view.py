@@ -43,6 +43,7 @@ class RateDay(tk.Frame):
         label = tk.Label(self, text="How are you feeling rn")
         label.grid(padx=10, pady=10)
         #Create Buttons for Mood Rating
+        
         self.button1 = tk.Button(self, text="1", command=lambda: self.button_clicked(1))
         self.button2 = tk.Button(self, text="2", command=lambda: self.button_clicked(2))
         self.button3 = tk.Button(self, text="3", command=lambda: self.button_clicked(3))
@@ -61,13 +62,11 @@ class RateDay(tk.Frame):
 
     def button_clicked(self, i, event=None):
         self.values[i-1].config(text=f"You selected button {i}")
-        event = QuEvent(EventKindQuestion.question_answered, i)
         event.notify_all() # Notify
         self.destroy()
 
-        #ADD LISTENER QUESTION ANSWERED
 
-    def notify(self, event: QuElement):
+    def notify(self, e):
         pass
 
         #Send info to where mood ratings are stored

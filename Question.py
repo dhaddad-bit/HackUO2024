@@ -25,7 +25,7 @@ class Question(object):
         return self.response_text
 
     def __str__(self):
-        return self.question_text
+        return f"{self.question_text}"
 
     def __repr__(self):
         return self.question_text

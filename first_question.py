@@ -28,8 +28,6 @@ def read_question(filename, dict, key):
             for line in reader:
 
 
-                new = q_class(key)
-
                 #fix me.append_main(new)#saving to .all
             return dict
     else:

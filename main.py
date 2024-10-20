@@ -6,7 +6,7 @@ print(s.question_pool())
 
 
 def main():
-    app = WellnessTracker() 
+    #app = WellnessTracker() 
 
 
 
