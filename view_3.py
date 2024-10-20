@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.tix as tix
 from tkinter import ttk
-#from survey import Survey
+from PIL import Image, ImageTk
 from tkcalendar import Calendar, DateEntry
 import datetime
 
@@ -67,13 +67,16 @@ class StartPage(tk.Frame):
 
         self.grid_propagate(False)
 
-        # self.image = tk.PhotoImage(file=a)
-        image_label = tk.Label(self, image=a)
-        image_label.pack(pady=10) 
+        image = Image.open(f"{a}")  # Provide the path to your image
+        self.photo = ImageTk.PhotoImage(image)
+        image_label = tk.Label(self, image=self.photo)
+        image_label.pack(pady=10)
 
 
         label = tk.Label(self, text="Welcome!", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
+
+
 
         self.calendar_frame = None
         button = tk.Button(self, text="View Calendar",
@@ -83,7 +86,7 @@ class StartPage(tk.Frame):
 
         button = tk.Button(self, text="Rate Your Day",
                            command=lambda: controller.show_frame(RateDayPage))
-        button.pack(pady=10)
+        button.pack(pady=20)
 
         button = tk.Button(self, text="Short-Answer Check-In",
                            command=lambda: controller.show_frame(QualPage))
@@ -104,6 +107,11 @@ class StartPage(tk.Frame):
         button = tk.Button(self, text="Add New Questions",
                             command=lambda: controller.show_frame(EditPage))
         button.pack(pady=10)
+
+        image = Image.open(f"{a}")  # Provide the path to your image
+        self.photo = ImageTk.PhotoImage(image)
+        image_label = tk.Label(self, image=self.photo)
+        image_label.pack(pady=10)
 
 
 class CalendarPage(tk.Frame):
