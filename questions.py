@@ -4,7 +4,12 @@ import datetime
 quant_q = "CSV/quantitative.csv"
 qual_q = "CSV/qualitative.csv"
 
-# from survey import Survey
+from Survey import Survey
+s = Survey()
+
+s.reader(location)
+s.reader(location2)
+
 
 def load_data(filename: str, column_titles: list) -> dict:
 
@@ -21,6 +26,8 @@ def load_data(filename: str, column_titles: list) -> dict:
                 value = row[header.index(title)]
                 if title == 'date':
                     value = datetime.datetime.strptime(value, '%Y-%m-%d')
+                elif title == 'question_#':
+                    s.questions[int(value)]
                 new_list.append(value)
 
             data_tuple = tuple(new_list)
@@ -48,5 +55,5 @@ def rand_quote(q_list: list):
     import random
     idx = len(q_list)
     rand = random.randint(0, idx-1)
-    return q_list[rand]
-
+    res = q_list[rand][1]
+    return res
