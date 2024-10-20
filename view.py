@@ -28,13 +28,14 @@ CURRENT_QNT_RES = {}
 LARGE_FONT = ("Comic Sans", 14, "bold")
 OVERLAY = ['./overlay/pic_1.jpg', './overlay/pic_2.jpg', './overlay/pic_3.jpg', './overlay/pic_4.jpg', './overlay/pic_5.jpg', './overlay/pic_6.jpg']
 
+a = rand_quote(OVERLAY)
 
 class App(tk.Tk):
 
     def __init__(self, *args, **kwargs):
-        a = rand_quote(OVERLAY)
+
         tk.Tk.__init__(self, *args, **kwargs)
-        self.geometry("700x800")
+        self.geometry("700x750")
         container = tk.Frame(self, width=700, height=800)
 
         container.pack(side="top", fill="both", expand = True)
@@ -108,6 +109,11 @@ class StartPage(tk.Frame):
         button = tk.Button(self, text="Add New Questions",
                             command=lambda: controller.show_frame(EditPage))
         button.pack(pady=10)
+
+        image = Image.open(a)  # Provide the path to your image
+        self.photo = ImageTk.PhotoImage(image)
+        image_label = tk.Label(self, image=self.photo)
+        image_label.pack(pady=10)
 
 
 class CalendarPage(tk.Frame):
