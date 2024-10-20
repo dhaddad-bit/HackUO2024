@@ -1,63 +1,81 @@
 import tkinter as tk
 from tkinter import ttk
-import elements
+from elements import *
+
 
 #from "elements.py" import Listener
 
 LARGE_FONT = ("Veranda", 12)
 
 class WellnessTracker(tk.Tk):
-    def __init__(self, *args, **kwargs):
-        tk.Tk.__init__(self, *args, **kwargs)
-        container = tk.Frame(self)
-        container.pack(side="top", fill="both", expand=True)
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
+    def __init__(self):
+        super().__init__()
+        self.title("Wellness Tracker")
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+        self.geometry("800x500")
 
-        self.frames = {}
-        frame = RateDay(container, self)
-        #NOTIFY LISTENER QUESETION OPPENED
-        self.frames[RateDay] = frame
-        frame.grid(row=0, column=0, sticky="nsew")
-        self.show_frame(RateDay)
+        #Rating of mood Frame
+        rating = RateDay(self)
+        rating.grid(column=1, padx=5, pady=5)
+        
+        menu = Menu(self)
+        menu.grid(column=0, row=0, sticky="w")
 
-    def show_frame(self, cont):
-        frame = self.frames[cont]
-        frame.tkraise()
+    # def show_frame(self, cont):
+    #     frame = self.frames[cont]
+    #     frame.tkraise()
+
+    def notify(self, event: QuElement):
+        pass
+
+class Menu(tk.Frame):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.open_survey = tk.Button(text="Open Survey")
+        self.open_survey.grid(row=0, column=0)
 
 class RateDay(tk.Frame):
     #
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
+    def __init__(self, parent):
+        super().__init__(parent)
         label = tk.Label(self, text="How are you feeling rn")
-        label.pack(padx=10, pady=10)
+        label.grid(padx=10, pady=10)
         #Create Buttons for Mood Rating
-        button_frame = tk.Frame(self)
-        button1 = tk.Button(button_frame, text="1", command=lambda: self.button_clicked())
-        button2 = tk.Button(button_frame, text="2", command=lambda: self.button_clicked())
-        button3 = tk.Button(button_frame, text="3", command=lambda: self.button_clicked())
-        button4 = tk.Button(button_frame, text="4", command=lambda: self.button_clicked())
-        button5 = tk.Button(button_frame, text="5", command=lambda: self.button_clicked()) 
-        button6 = tk.Button(button_frame, text="6", command=lambda: self.button_clicked())
-        button7 = tk.Button(button_frame, text="7", command=lambda: self.button_clicked())
-        button8 = tk.Button(button_frame, text="8", command=lambda: self.button_clicked())
-        button9 = tk.Button(button_frame, text="9", command=lambda: self.button_clicked())
-        button10 = tk.Button(button_frame, text="10", command=lambda: self.button_clicked())
+        
+        self.button1 = tk.Button(self, text="1", command=lambda: self.button_clicked(1))
+        self.button2 = tk.Button(self, text="2", command=lambda: self.button_clicked(2))
+        self.button3 = tk.Button(self, text="3", command=lambda: self.button_clicked(3))
+        self.button4 = tk.Button(self, text="4", command=lambda: self.button_clicked(4))
+        self.button5 = tk.Button(self, text="5", command=lambda: self.button_clicked(5)) 
+        self.button6 = tk.Button(self, text="6", command=lambda: self.button_clicked(6))
+        self.button7 = tk.Button(self, text="7", command=lambda: self.button_clicked(7))
+        self.button8 = tk.Button(self, text="8", command=lambda: self.button_clicked(8))
+        self.button9 = tk.Button(self, text="9", command=lambda: self.button_clicked(9))
+        self.button10 = tk.Button(self, text="10", command=lambda: self.button_clicked(10))
+
         #Pack and display buttons)
-        self.values = [button1, button2, button3, button4, button5, button6, button7, button8, button9, button10]
+        self.values = [self.button1, self.button2, self.button3, self.button4, self.button5, self.button6, self.button7, self.button8, self.button9, self.button10]
         for i in range(10):
-            self.values[i].pack()
-        button_frame.pack()
+            self.values[i].grid(column=0, row=i+1)
 
-    def button_clicked(self, event=None):
-        print("Button Clicked")
-        buttonconfig("")
-        
-        #ADD LISTENER QUESTION ANSWERED
-        
+    def button_clicked(self, i, event=None):
+        self.values[i-1].config(text=f"You selected button {i}")
+        event.notify_all() # Notify
+        self.destroy()
 
-app = WellnessTracker()
-app.mainloop()
+
+    def notify(self, e):
+        pass
+
+        #Send info to where mood ratings are stored
+
+
+        
+if __name__ == "__main__":
+    app = WellnessTracker()
+    app.mainloop()
 
 
 

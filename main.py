@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Question
 from view import *
 from elements import QuElement, QuEvent, EventKindQuestion
@@ -10,6 +11,17 @@ def main():
     app = WellnessTracker()
     app.mainloop()
     print
+=======
+from Survey import Survey
+from view import WellnessTracker
+
+s = Survey(10, 'quantitative')
+print(s.question_pool())
+
+
+def main():
+    #app = WellnessTracker() 
+>>>>>>> 6762cf08560808f2166d75ff38fef3de9398c912
 
 
 
@@ -52,4 +64,5 @@ class QuestionListener(Listener):
 
 
 
-        
+
+#def init_
