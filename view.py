@@ -14,6 +14,7 @@ DIC = {}
 
 PAST_RATES = load_data("csv/rate_day.csv", ["date", "rating"])
 QUANT_RES = load_data("csv/quantitative_responses.csv", ["date", "question_#", "response"])
+QUALT_RES = load_data("csv/qualitative_responses.csv", ["date", "question_#", "response"])
 CURRENT_QNT_RES = {}
 
 class App(tk.Tk):
@@ -92,24 +93,32 @@ class CalendarPage(tk.Frame):
         self.label = tk.Label(self, text="CALENDAR")
         self.label.pack(pady=10)
 
-        self.d = {}
+        self.d_qn = {}
+        self.d_ql = {}
 
         # Create a Calendar widget
         self.calendar = Calendar(self, date_pattern="yyyy-mm-dd")
         self.calendar.bind("<<CalendarSelected>>", self.open_new_window)
         self.calendar.pack(fill="both", expand=True)
 
-
         for i in range(len(PAST_RATES)):
             self.calendar.calevent_create(date=PAST_RATES[i][0], text="", tags=PAST_RATES[i][1])
         
         for i in range(len(QUANT_RES)):
             time = QUANT_RES[i][0].strftime("%Y-%m-%d")
-            if time in self.d.keys():
-                self.d[time].append((QUANT_RES[i][1], QUANT_RES[i][2]))
+            if time in self.d_qn.keys():
+                self.d_qn[time].append((QUANT_RES[i][1], QUANT_RES[i][2]))
             else:
-                self.d[time] = []
-                self.d[time].append((QUANT_RES[i][1], QUANT_RES[i][2]))
+                self.d_qn[time] = []
+                self.d_qn[time].append((QUANT_RES[i][1], QUANT_RES[i][2]))
+
+        for i in range(len(QUALT_RES)):
+            time = QUALT_RES[i][0].strftime("%Y-%m-%d")
+            if time in self.d_qn.keys():
+                self.d_qn[time].append((QUALT_RES[i][1], QUALT_RES[i][2]))
+            else:
+                self.d_qn[time] = []
+                self.d_qn[time].append((QUALT_RES[i][1], QUALT_RES[i][2]))
         
         self.calendar.tag_config('1', background='SteelBlue4', foreground='white')
         self.calendar.tag_config('2', background='SteelBlue3', foreground='white')
@@ -133,9 +142,22 @@ class CalendarPage(tk.Frame):
 
         self.label = tk.Label(new_window, text="Numerical Check-Ins")
         self.label.pack()
-        if date in self.d.keys():
-            for i in range(len(self.d[date])):
-                tup = self.d[date][i]
+        if date in self.d_qn.keys():
+            for i in range(len(self.d_qn[date])):
+                tup = self.d_qn[date][i]
+                self.label = tk.Label(new_window, text=tup[0])
+                self.label.pack()
+                self.label = tk.Label(new_window, text=tup[1])
+                self.label.pack()
+        else:
+            self.label = tk.Label(new_window, text="Empty")
+            self.label.pack()
+
+        self.label = tk.Label(new_window, text= "Short Answer Check-Ins")
+        self.label.pack()
+        if date in self.d_ql.keys():
+            for i in range(len(self.d_ql[date])):
+                tup = self.d_ql[date][i]
                 self.label = tk.Label(new_window, text=tup[0])
                 self.label.pack()
                 self.label = tk.Label(new_window, text=tup[1])
@@ -150,12 +172,18 @@ class CalendarPage(tk.Frame):
     def update_calendar(self, date, typ, q=None, r=None):
         if typ == "rate":
             self.calendar.calevent_create(date, text="", tags=DIC["rating"])
-        elif typ == "qq":
-            if date in self.d.keys():
-                self.d[date].append((q, r))
+        elif typ == "qn":
+            if date in self.d_qn.keys():
+                self.d_qn[date].append((q, r))
             else:
-                self.d[date] = []
-                self.d[date].append((q, r))
+                self.d_qn[date] = []
+                self.d_qn[date].append((q, r))
+        elif typ == "ql":
+            if date in self.d_ql.keys():
+                self.d_ql[date].append((q, r))
+            else:
+                self.d_ql[date] = []
+                self.d_ql[date].append((q, r))
 
 class RateDayPage(tk.Frame):
 
@@ -212,6 +240,8 @@ class RateDayPage(tk.Frame):
 class QualPage(tk.Frame):
 
     def __init__(self, parent, controller):
+        self.controller = controller
+
         tk.Frame.__init__(self, parent)
 
         self.res_dict = {}
@@ -221,7 +251,7 @@ class QualPage(tk.Frame):
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
 
-        self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))
+        self.question = rand_quote(load_quotes("csv/qualitative.csv", "Questions"))
         self.label = tk.Label(self, text=self.question[1])
         self.label.pack(pady=5)
 
@@ -238,9 +268,9 @@ class QualPage(tk.Frame):
         self.quote_button.pack(pady=5)
 
     def get_new_survey(self, label):
-        res = self.res_dict[self.question[1]]
 
-        if res > 0:
+        if len(self.res_dict[self.question[1]]) > 0:
+            res = self.res_dict[self.question[1]]
             csv_inp = [datetime.date.today().strftime("%Y-%m-%d"), self.question[0], res]
             save_inputs(csv_inp, "csv/qualitative_responses.csv")
             self.update_calendar(r=res, q=self.question[1])
@@ -249,7 +279,6 @@ class QualPage(tk.Frame):
         self.question = rand_quote(load_quotes("csv/qualitative.csv", "Questions"))
         label.config(text = self.question[1])
 
-
     def take_input(self, txt):
         self.inp = txt.get("1.0", "end-1c")
         self.res_dict[self.question[1]] = self.inp
@@ -257,7 +286,7 @@ class QualPage(tk.Frame):
 
     def update_calendar(self, q, r):
         cal = self.controller.frames[CalendarPage]
-        cal.update_calendar(datetime.date.today(), "qq", q=q, r=r)
+        cal.update_calendar(datetime.date.today(), "ql", q=q, r=r)
 
 
         
@@ -274,7 +303,7 @@ class QuanPage(tk.Frame):
         self.back_button.pack(pady=10)
 
         self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))
-        self.label = tk.Label(self, text=self.question[1])
+        self.label = tk.Label(self, text=self.question[1], bg="light blue")
         self.label.pack(pady=5)
 
         self.txt = tk.Text(self, height=10,
@@ -290,9 +319,9 @@ class QuanPage(tk.Frame):
         self.quote_button.pack(pady=5)
 
     def get_new_survey(self, label):
-        res = self.res_dict[self.question[1]]
 
-        if res > 0:
+        if self.res_dict[self.question[1]] > 0:
+            res = self.res_dict[self.question[1]]
             csv_inp = [datetime.date.today().strftime("%Y-%m-%d"), self.question[0], res]
             save_inputs(csv_inp, "csv/quantitative_responses.csv")
             self.update_calendar(r=res, q=self.question[1])
@@ -309,7 +338,7 @@ class QuanPage(tk.Frame):
 
     def update_calendar(self, q, r):
         cal = self.controller.frames[CalendarPage]
-        cal.update_calendar(datetime.date.today(), "qq", q=q, r=r)
+        cal.update_calendar(datetime.date.today(), "qn", q=q, r=r)
 
 
 class InspQuPage(tk.Frame):
