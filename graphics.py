@@ -1,7 +1,7 @@
 import tkinter as tk 
 import tkinter as ttk
 #from questions import rand_quote
-
+from questions import rand_quote
 
 quant_q = "CSV/quantitative.csv"
 qual_q = "CSV/qualitative.csv"
@@ -14,28 +14,28 @@ qual_q = "CSV/qualitative.csv"
 
 
 
-def create_ombre_1(canvas, width, height, color1, color2):
-    # Function to create a vertical gradient (ombre) from color1 to color2
-    r1, g1, b1 = canvas.ttk.winfo_rgb(color1)
-    r2, g2, b2 = canvas.ttk.winfo_rgb(color2)
+# def create_ombre_1(canvas, width, height, color1, color2):
+#     # Function to create a vertical gradient (ombre) from color1 to color2
+#     r1, g1, b1 = canvas.ttk.winfo_rgb(color1)
+#     r2, g2, b2 = canvas.ttk.winfo_rgb(color2)
 
-    r_ratio = (r2 - r1) / height
-    g_ratio = (g2 - g1) / height
-    b_ratio = (b2 - b1) / height
+#     r_ratio = (r2 - r1) / height
+#     g_ratio = (g2 - g1) / height
+#     b_ratio = (b2 - b1) / height
 
-    for i in range(height):
-        nr = int(r1 + (r_ratio * i))
-        ng = int(g1 + (g_ratio * i))
-        nb = int(b1 + (b_ratio * i))
-        color = f'#{nr // 256:02x}{ng // 256:02x}{nb // 256:02x}'
-        canvas.create_line(0, i, width, i, fill=color)
+#     for i in range(height):
+#         nr = int(r1 + (r_ratio * i))
+#         ng = int(g1 + (g_ratio * i))
+#         nb = int(b1 + (b_ratio * i))
+#         color = f'#{nr // 256:02x}{ng // 256:02x}{nb // 256:02x}'
+#         canvas.create_line(0, i, width, i, fill=color)
 
 
 
-root = tk.Tk()
+# root = tk.Tk()
 
-rgb_value = root.winfo_rgb("lightblue")
-print(rgb_value) 
+# rgb_value = root.winfo_rgb("lightblue")
+# print(rgb_value) 
 
 
 
@@ -83,4 +83,111 @@ from PIL import Image, ImageTk
 
 root = tk.Tk()
 root.geometry("800x600")
+
+image_path = ['overlay/pic_1.jpg','overlay/pic_2.jpg','overlay/pic_3.jpg']
+
+# Make sure to provide a valid image path
+print(rand_quote(image_path))
+
+
+try:
+    image = Image.open(rand_quote(image_path))  # Open the image file
+    photo = ImageTk.PhotoImage(image)  # Convert the image to a PhotoImage object
+except Exception as e:
+    print(f"Error loading image: {e}")
+
+image_label = tk.Label(root, image=photo)
+image_label.pack(pady=20)  # Pack the label into the window with some padding
+
+# Run the application
+root.mainloop()
+
+
+
+# class QualPage(tk.Frame):
+
+#     def __init__(self, parent, controller):
+#         tk.Frame.__init__(self, parent)
+
+#         self.res_dict = {}
+
+    
+#         self.back_button = tk.Button(self, text="Back to Main Page",
+#                                      command=lambda: controller.show_frame(StartPage))
+#         self.back_button.pack(pady=10)
+
+#         self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))
+#         self.label = tk.Label(self, text=self.question[1])
+#         self.label.pack(pady=5)
+
+#         self.txt = tk.Text(self, height=10,
+#                              width=25)
+#         self.txt.pack()
+
+#        self.quote_button = tk.Button(self, text="Save",
+#                                         command=lambda: self.take_input(self.txt))
+#         self.quote_button.pack(pady=5)
+
+#         self.quote_button = tk.Button(self, text="New Question",
+#                                       command=lambda: self.get_new_survey(self.label))
+#         self.quote_button.pack(pady=5)
+
+#     def get_new_survey(self, label):
+#         res = self.res_dict[self.question[1]]
+#         csv_inp = [datetime.date.today().strftime("%Y-%m-%d"), self.question[0], res]
+#         save_inputs(csv_inp, "csv/qualitative_responses.csv")
+
+#         self.question = rand_quote(load_quotes("csv/qualitative.csv", "Questions"))
+#         label.config(text = self.question[1])
+
+
+#     def take_input(self, txt):
+#         self.inp = txt.get("1.0", "end-1c")
+#         self.res_dict[self.question[1]] = self.inp
+#         txt.delete('1.0', tk.END)
+
+
+# class QuanPage(tk.Frame):
+#     def __init__(self, parent, controller):
+#         tk.Frame.__init__(self, parent)
+
+#         self.res_dict = {}
+
+#         self.back_button = tk.Button(self, text="Back to Main Page",
+#                                      command=lambda: controller.show_frame(StartPage))
+#         self.back_button.pack(pady=10)
+
+#         self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))
+#         self.label = tk.Label(self, text=self.question[1])
+#         self.label.pack(pady=5)
+
+#         self.txt = tk.Text(self, height=10,
+#                              width=25)
+#         self.txt.pack()
+
+#         self.quote_button = tk.Button(self, text="Save",
+#                                         command=lambda: self.take_input(self.txt))
+#         self.quote_button.pack(pady=5)
+
+#         self.quote_button = tk.Button(self, text="New Question",
+#                                       command=lambda: self.get_new_survey(self.label))
+#         self.quote_button.pack(pady=5)
+
+#     def get_new_survey(self, label):
+#         res = self.res_dict[self.question[1]]
+#         csv_inp = [datetime.date.today().strftime("%Y-%m-%d"), self.question[0], res]
+#         save_inputs(csv_inp, "csv/quantitative_responses.csv")
+
+#         self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))
+#         label.config(text = self.question[1])
+
+
+#     def take_input(self, txt):
+#         self.inp = txt.get("1.0", "end-1c")
+#         self.inp = inpt_as_number(self.inp)
+#         self.res_dict[self.question[1]] = self.inp
+#         txt.delete('1.0', tk.END)
+
+
+
 
