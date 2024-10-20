@@ -35,7 +35,7 @@ def read_word(filename, lst: "Survey", key):
             return lst
     else:
         with open(filename, 'w', encoding='utf-8', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=['morpheme', 'grammar', 'unicode', 'pinyin', 'tone', 'eng_sig','score'])
+            writer = csv.DictWriter(f, key)
             writer.writeheader()
             return lst
 
