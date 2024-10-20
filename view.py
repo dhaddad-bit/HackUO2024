@@ -222,12 +222,14 @@ class RateDayPage(tk.Frame):
         self.controller = controller
 
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Rate Your Day!")
-        label.pack(pady=10,padx=10)
-
+        
         self.back_button = tk.Button(self, text = "Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
-        self.back_button.pack(pady = 5)
+        self.back_button.pack(pady = 15, padx=5)
+
+        label = tk.Label(self, text="Rate Your Day!")
+        label.pack(pady=(150, 10),padx=10)
+
 
         button_frame = tk.Frame(self)
 
