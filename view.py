@@ -62,7 +62,7 @@ class RateDay(tk.Frame):
     def button_clicked(self, i, event=None):
         self.values[i-1].config(text=f"You selected button {i}")
         event = QuEvent(EventKindQuestion.question_answered, i)
-        self.notify_all(event) # Notify
+        event.notify_all() # Notify
         self.destroy()
 
         #ADD LISTENER QUESTION ANSWERED
