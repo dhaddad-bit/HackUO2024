@@ -146,18 +146,19 @@ class CalendarPage(tk.Frame):
         for i in range(len(QUANT_RES)):
             time = QUANT_RES[i][0].strftime("%Y-%m-%d")
             if time in self.d_qn.keys():
-                self.d_qn[time].append((QUANT_RES[i][1], QUANT_RES[i][2]))
+                self.d_qn[time].append((s.questions[int(QUANT_RES[i][1])], QUANT_RES[i][2]))
+                print(QUANT_RES[i][1])
             else:
                 self.d_qn[time] = []
-                self.d_qn[time].append((QUANT_RES[i][1], QUANT_RES[i][2]))
+                self.d_qn[time].append((s.questions[int(QUANT_RES[i][1])], QUANT_RES[i][2]))
 
         for i in range(len(QUALT_RES)):
             time = QUALT_RES[i][0].strftime("%Y-%m-%d")
             if time in self.d_qn.keys():
-                self.d_qn[time].append((QUALT_RES[i][1], QUALT_RES[i][2]))
+                self.d_qn[time].append((s.questions[int(QUALT_RES[i][1])], QUALT_RES[i][2]))
             else:
                 self.d_qn[time] = []
-                self.d_qn[time].append((QUALT_RES[i][1], QUALT_RES[i][2]))
+                self.d_qn[time].append((s.questions[int(QUALT_RES[i][1])], QUALT_RES[i][2]))
         
         self.calendar.tag_config('1', background='SteelBlue4', foreground='black')
         self.calendar.tag_config('2', background='SteelBlue3', foreground='black')
