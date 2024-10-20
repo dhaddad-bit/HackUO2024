@@ -1,6 +1,8 @@
 import csv
 import datetime
 quant_q = "CSV/quantitative.csv"
+quant_q_a = "CSV/quantitative_responses.csv"
+
 qual_q = "CSV/qualitative.csv"
 
 from Survey import Survey
@@ -27,7 +29,10 @@ def load_data(filename: str, column_titles: list) -> dict:
                     value = datetime.datetime.strptime(value, '%Y-%m-%d')
                 elif title == 'question_#':
                     value = s.questions[int(value)]
+
+                
                 new_list.append(value)
+
 
             data_tuple = tuple(new_list)
             data_list.append(data_tuple)
@@ -51,6 +56,7 @@ def load_quotes(filename: str, title) -> list:
     return data_list
 
 def rand_quote(q_list: list):
+    "used frequently with randint, and returns len(list) value"
     import random
     idx = len(q_list)
     rand = random.randint(0, idx-1)
@@ -58,7 +64,7 @@ def rand_quote(q_list: list):
     return res
 
 def save_inputs(words, filename):
-    """rewrites a file with updated list of words"""
+    """appends a file with updated list of words"""
     with open(filename, 'a', newline = '') as f:
         writer = csv.writer(f)
         writer.writerow(words)
@@ -81,3 +87,6 @@ def inpt_as_number(input_string):
                 raise ValueError(f"We were kind of looking for a quantitative answer, but '{i}' is not...\nDid you mean to write that?")
     
     raise ValueError(f"We were kind of looking for a quantitative answer, but '{i}' is not...\nDid you mean to write that?")
+
+a = load_data(quant_q_a, ["date","question_#","response"])
+print(a)
