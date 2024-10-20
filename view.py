@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.tix as tix
 from tkinter import ttk
-from survey import Survey
+#from survey import Survey
 from tkcalendar import Calendar, DateEntry
 import datetime
 
@@ -12,7 +12,7 @@ from questions import rand_quote, load_data, load_quotes
 DIC = {}
 
 PAST_RATES = load_data("csv/rate_day.csv", ["date", "rating"])
-print(PAST_RATES)
+
 
 class App(tk.Tk):
 
@@ -97,7 +97,6 @@ class CalendarPage(tk.Frame):
         self.calendar.pack(fill="both", expand=True)
 
         for i in range(len(PAST_RATES)):
-            print(PAST_RATES[i][1])
             self.calendar.calevent_create(date=PAST_RATES[i][0], text="", tags=PAST_RATES[i][1])
 
         self.calendar.tag_config('1', background='SteelBlue4', foreground='white')
@@ -188,7 +187,7 @@ class QualPage(tk.Frame):
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
         
-class QuanPage(tk.Frame, s):
+class QuanPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
@@ -197,17 +196,28 @@ class QuanPage(tk.Frame, s):
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
 
-        self.label = tk.Label(self, text= rand_quote(s.quant))
+        self.label = tk.Label(self, text= rand_quote(load_quotes("csv/quantitative.csv", "Questions")))
         self.label.pack(pady=5)
 
-        self.quote_button = tk.Button(self, text="New Quote",
-                                      command=lambda: self.get_new_quote(self.label))
+        self.txt = tk.Text(self, height=10,
+                             width=25)
+        self.txt.pack()
+
+        self.quote_button = tk.Button(self, text="Save",
+                                        command=lambda: self.take_input(self.txt))
         self.quote_button.pack(pady=5)
 
+        self.quote_button = tk.Button(self, text="New Quote",
+                                      command=lambda: self.get_new_survey(self.label))
+        self.quote_button.pack(pady=5)
 
-    
     def get_new_survey(self, label):
-        label.config(text=rand_quote(s.quant))
+        label.config(text=rand_quote(load_quotes("csv/quantitative.csv", "Questions")))
+
+    def take_input(self, txt):
+        inp = txt.get("1.0", "end-1c")
+        txt.delete('1.0', tk.END)
+        
 
 class InspQuPage(tk.Frame):
     def __init__(self, parent, controller):
