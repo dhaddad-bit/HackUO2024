@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from view import *
 
 
