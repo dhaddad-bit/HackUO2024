@@ -5,6 +5,7 @@ from tkinter import ttk
 #from survey import Survey
 from tkcalendar import Calendar, DateEntry
 import datetime
+from PIL import Image, ImageTk
 
 #plot imports
 from matplotlib.figure import Figure
@@ -24,14 +25,26 @@ QUALT_RES = load_data("csv/qualitative_responses.csv", ["date", "question_#", "r
 CURRENT_QNT_RES = {}
 
 LARGE_FONT = ("Comic Sans", 14, "bold")
+OVERLAY = ['./overlay/pic_1.jpg','./overlay/pic_2.jpg','./overlay/pic_3.jpg']
+
 
 class App(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         
         tk.Tk.__init__(self, *args, **kwargs)
-        self.geometry("600x600")
-        container = tk.Frame(self)
+        self.geometry("700x800")
+        container = tk.Frame(self, width=700, height=800)
+
+        container.pack(side="top", fill="both", expand = True)
+        container.grid_propagate(False)
+
+
+        self.image = Image.open('./overlay/pic_3.jpg')
+        self.python_image = ImageTk.PhotoImage(self.image)
+
+        ttk.Label(self, image=self.python_image).pack()
+
 
         container.pack(side="top", fill="both", expand = True)
         container.grid_propagate(False)

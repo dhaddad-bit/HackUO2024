@@ -37,8 +37,8 @@ class App(tk.Tk):
     def __init__(self, *args, **kwargs):
         
         tk.Tk.__init__(self, *args, **kwargs)
-        self.geometry("600x800")
-        container = tk.Frame(self, width=600, height=400)
+        self.geometry("700x800")
+        container = tk.Frame(self, width=700, height=800)
 
         container.pack(side="top", fill="both", expand = True)
         container.grid_propagate(False)
