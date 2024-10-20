@@ -37,4 +37,4 @@ class QuElement:
 
         def notify_all(self, event: QuEvent):
              for listeners in self.listeners:
-                  listeners.notify(event)
+                listeners.notify(event)

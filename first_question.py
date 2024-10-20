@@ -1,12 +1,8 @@
 import csv
 import elements
 import os
+import view
 
-
-
-class InitQuestion(Question):
-    def __init__(self, input, answer):
-        
 
 
 
