@@ -5,7 +5,37 @@ from tkinter import ttk
 from tkcalendar import Calendar, DateEntry
 import datetime
 
+import csv
+
 DIC = {}
+
+def load_data(filename: str, column_titles: list) -> dict:
+
+    data_list = []
+    row_count = 0
+    with open(filename) as open_file:
+        csv_reader = csv.reader(open_file)
+        header = next(csv_reader)
+    
+        for row in csv_reader:
+            new_list = []
+
+            for title in column_titles:
+                value = row[header.index(title)]
+                if title == 'date':
+                    value = datetime.datetime.strptime(value, '%Y-%m-%d')
+                new_list.append(value)
+
+            data_tuple = tuple(new_list)
+            data_list.append(data_tuple)
+            row_count +=1
+        
+
+    return data_list
+
+PAST_RATES = load_data("csv/rate_day.csv", ["date", "rating"])
+INSP_QUOTES = load_data("csv/inspirational_quotes.csv", ["Quote"])
+print(INSP_QUOTES)
 
 class App(tk.Tk):
 
@@ -89,6 +119,9 @@ class CalendarPage(tk.Frame):
         self.calendar.bind("<<CalendarSelected>>", self.open_new_window)
         self.calendar.pack(fill="both", expand=True)
 
+        for i in range(len(PAST_RATES)):
+            print(PAST_RATES[i][1])
+            self.calendar.calevent_create(date=PAST_RATES[i][0], text="", tags=PAST_RATES[i][1])
 
         self.calendar.tag_config('1', background='SteelBlue4', foreground='white')
         self.calendar.tag_config('2', background='SteelBlue3', foreground='white')
@@ -130,7 +163,7 @@ class RateDayPage(tk.Frame):
 
         self.back_button = tk.Button(self, text = "Back to Main Page",
                                      command=lambda: controller.show_frame(StartPage))
-        self.back_button.pack(pady = 10)
+        self.back_button.pack(pady = 5)
 
         self.button1 = tk.Button(self, text="1", 
                                  command=lambda: self.button_clicked(1))
