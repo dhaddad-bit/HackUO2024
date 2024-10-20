@@ -488,9 +488,6 @@ class TrendPage(tk.Frame):
         self.canvas.get_tk_widget().pack(side=tk.LEFT)
 
         # Creating Toolbar using Matplotlib
-        toolbar = NavigationToolbar2Tk(self.canvas,
-                                   self)
-        toolbar.update()
 
         self.canvas.get_tk_widget().pack()
 
