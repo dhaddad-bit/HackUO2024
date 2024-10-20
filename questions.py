@@ -69,6 +69,16 @@ def save_inputs(words, filename):
         writer = csv.writer(f)
         writer.writerow(words)
 
+def search_headercolumn(file: str, column: int, keyword: str):
+    with open(file) as f:
+        reader = csv.reader(f)
+        for row in reader:
+            if keyword in row[column]:
+                return True
+    
+        return False
+
+print(search_headercolumn("csv/rate_day.csv", 1, "5"))
 
 def inpt_as_number(input_string):
     from word2number import w2n
