@@ -455,47 +455,59 @@ class TrendPage(tk.Frame):
         tk.Frame.__init__(self, parent)
     
         self.back_button = tk.Button(self, text="Back to Main Page",
-                                     command=lambda: controller.show_frame(StartPage))
+                                     command=lambda: self.reset_frame(controller))
         self.back_button.pack(pady=10) 
 
-        self.plot_button = tk.Button(master = self, command = lambda: self.plot_q_data("CSV/rate_day.csv", ["date", "rating"]),
+        self.plot_button = tk.Button(master = self, command = lambda: self.plot_q_data("CSV/rate_day.csv", ["date", "rating"], title="Mood Graph"),
                      height = 2, 
                      width = 10,
                      text = "Plot Rate Day")
         self.plot_button.pack(pady=10)
 
-        self.plot_numerical_button = tk.Button(master=self, command = lambda: self.plot_q_data())
+        self.plot_numerical_button = tk.Button(master=self, text="Plot Question Responses", command = lambda: self.plot_q_data("CSV/quantitative_responses.csv", ["date", "response", "question_#"], 
+                    question=12),
+                    height=2)
         self.plot_numerical_button.pack(pady=10)
 
-     def plot_q_data(self, file_name: str, column_titles: list):
+     def plot_q_data(self, file_name: str, column_titles: list, question=-1, title="Title"):
+    
         # Creating Figure Widget
         fig = Figure(figsize = (5, 5))
         # Pull Ratings from File
         data_list = sorted(load_data(file_name, column_titles)) #Sort by datetime
+        print(data_list)
+        if question != -1:
+            data_list = [data_list[i] for i in range(len(data_list)) if int(data_list[i][2]) == question]
+            title = s.questions[int(question)]
+        print(data_list)
+
         y = [data_list[i][0] for i in range(len(data_list))]
         dates = [int(data_list[i][1]) for i in range(len(data_list))]
+        #Sort For question #
+        
         #print(data_list)
 
         # Adding plots
         plot1 = fig.add_subplot()
 
         plot1.plot(y, dates)
+        fig.suptitle(title)
         plot1.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
 
         # Creating canvass using FigureCanvasTkAgg()
-        canvas = FigureCanvasTkAgg(fig,
+        self.canvas = FigureCanvasTkAgg(fig,
                                master = self)  
-        canvas.draw()
+        self.canvas.draw()
 
-        canvas.get_tk_widget().pack()
+        self.canvas.get_tk_widget().pack(side=tk.LEFT)
 
         # Creating Toolbar using Matplotlib
-        toolbar = NavigationToolbar2Tk(canvas,
-                                   self)
-        toolbar.update()
 
-        canvas.get_tk_widget().pack()
+        self.canvas.get_tk_widget().pack()
 
+     def reset_frame(self, controller):
+         self.canvas.get_tk_widget().destroy()
+         controller.show_frame(StartPage)
 
 
 if __name__ == '__main__':
