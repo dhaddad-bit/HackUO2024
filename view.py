@@ -7,7 +7,7 @@ import datetime
 
 import csv
 
-from questions import rand_quote, load_data
+from questions import rand_quote, load_data, load_quotes
 
 DIC = {}
 
@@ -204,6 +204,15 @@ class InspQuPage(tk.Frame):
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady=10)
 
+        self.label = tk.Label(self, text= rand_quote(load_quotes("csv/inspirational_quotes.csv", "Quote")))
+        self.label.pack(pady=5)
+
+        self.quote_button = tk.Button(self, text="New Quote",
+                                      command=lambda: self.get_new_quote(self.label))
+        self.quote_button.pack(pady=5)
+
+    def get_new_quote(self, label):
+        label.config(text=rand_quote(load_quotes("csv/inspirational_quotes.csv", "Quote")))
 
 
 class EditPage(tk.Frame):
