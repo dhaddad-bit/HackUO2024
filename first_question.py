@@ -2,7 +2,6 @@ import csv
 import os
 
 
-<<<<<<< HEAD
 
 
 
@@ -18,9 +17,6 @@ import os
 
 
 
-=======
- 
->>>>>>> 6762cf08560808f2166d75ff38fef3de9398c912
 
 def csv_file_exists(filename):
     """
