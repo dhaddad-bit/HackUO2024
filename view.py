@@ -162,26 +162,28 @@ class RateDayPage(tk.Frame):
                                      command=lambda: controller.show_frame(StartPage))
         self.back_button.pack(pady = 5)
 
-        self.button1 = tk.Button(self, text="1", 
-                                 command=lambda: self.button_clicked(1))
-        self.button2 = tk.Button(self, text="2", 
-                                 command=lambda: self.button_clicked(2))
-        self.button3 = tk.Button(self, text="3", 
-                                 command=lambda: self.button_clicked(3))
-        self.button4 = tk.Button(self, text="4", 
-                                 command=lambda: self.button_clicked(4))
-        self.button5 = tk.Button(self, text="5", 
-                                 command=lambda: self.button_clicked(5)) 
-        self.button6 = tk.Button(self, text="6", 
-                                 command=lambda: self.button_clicked(6))
-        self.button7 = tk.Button(self, text="7", 
-                                 command=lambda: self.button_clicked(7))
-        self.button8 = tk.Button(self, text="8", 
-                                 command=lambda: self.button_clicked(8))
-        self.button9 = tk.Button(self, text="9", 
-                                 command=lambda: self.button_clicked(9))
-        self.button10 = tk.Button(self, text="10", 
-                                  command=lambda: self.button_clicked(10))
+     
+        self.button1 = tk.Button(self, text="1", foreground='white',
+                                 command=lambda: self.button_clicked(1), background='SteelBlue4')
+        self.button2 = tk.Button(self, text="2", foreground='white',
+                                 command=lambda: self.button_clicked(2), background='SteelBlue3')
+        self.button3 = tk.Button(self, text="3", foreground='white',
+                                 command=lambda: self.button_clicked(3), background='SteelBlue2')
+        self.button4 = tk.Button(self, text="4", foreground='white',
+                                 command=lambda: self.button_clicked(4), background='SteelBlue1')
+        self.button5 = tk.Button(self, text="5", foreground='white',
+                                 command=lambda: self.button_clicked(5), bg = 'turquoise') 
+        self.button6 = tk.Button(self, text="6", foreground='white',
+                                 command=lambda: self.button_clicked(6), bg = 'aquamarine')
+        self.button7 = tk.Button(self, text="7", foreground='white',
+                                 command=lambda: self.button_clicked(7), bg = "SpringGreen1")
+        self.button8 = tk.Button(self, text="8", foreground='white',
+                                 command=lambda: self.button_clicked(8), bg = "SpringGreen2")
+        self.button9 = tk.Button(self, text="9",foreground='white', 
+                                 command=lambda: self.button_clicked(9), bg = "SpringGreen3")
+        self.button10 = tk.Button(self, text="10", foreground='white',
+                                  command=lambda: self.button_clicked(10), bg = "SpringGreen4")
+
     
         self.values = [self.button1, self.button2, self.button3, self.button4,
                          self.button5, self.button6, self.button7, self.button8, 
