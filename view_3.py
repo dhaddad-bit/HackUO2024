@@ -19,15 +19,25 @@ CURRENT_QNT_RES = {}
 
 LARGE_FONT = ("Comic Sans", 14, "bold")
 
+
+OVERLAY = ['overlay/pic_1.jpg','overlay/pic_2.jpg','overlay/pic_3.jpg']
+
+# Make sure to provide a valid image path
+a = rand_quote(OVERLAY)
+
+
+
+
 class App(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         
         tk.Tk.__init__(self, *args, **kwargs)
         self.geometry("600x600")
-        container = tk.Frame(self)
+        container = tk.Frame(self, width=600, height=400)
 
         container.pack(side="top", fill="both", expand = True)
+        container.grid_propagate(False)
 
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
@@ -54,6 +64,14 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
 
         tk.Frame.__init__(self, parent)
+
+        self.grid_propagate(False)
+
+        # self.image = tk.PhotoImage(file=a)
+        image_label = tk.Label(self, image=a)
+        image_label.pack(pady=10) 
+
+
         label = tk.Label(self, text="Welcome!", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
 
