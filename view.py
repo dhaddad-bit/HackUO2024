@@ -17,6 +17,8 @@ QUANT_RES = load_data("csv/quantitative_responses.csv", ["date", "question_#", "
 QUALT_RES = load_data("csv/qualitative_responses.csv", ["date", "question_#", "response"])
 CURRENT_QNT_RES = {}
 
+LARGE_FONT = ("Comic Sans", 14, "bold")
+
 class App(tk.Tk):
 
     def __init__(self, *args, **kwargs):
@@ -51,7 +53,7 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
 
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Start Page")
+        label = tk.Label(self, text="Welcome!", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
 
         self.calendar_frame = None
@@ -237,7 +239,7 @@ class RateDayPage(tk.Frame):
 
     def update_calendar(self):
         cal = self.controller.frames[CalendarPage]
-        cal.update_calendar(datetime.date.today(), "rate")
+        cal.update_calendar(datetime.date.today(), typ="rate")
 
 class QualPage(tk.Frame):
 
@@ -286,7 +288,7 @@ class QualPage(tk.Frame):
         self.res_dict[self.question[1]] = self.inp
         txt.delete('1.0', tk.END)
 
-    def update_calendar(self, q, r):
+    def update_calendar(self, typ="ql", q=None, r=None):
         cal = self.controller.frames[CalendarPage]
         cal.update_calendar(datetime.date.today(), typ="ql", q=q, r=r)
 
@@ -338,9 +340,9 @@ class QuanPage(tk.Frame):
         self.res_dict[self.question[1]] = self.inp
         txt.delete('1.0', tk.END)
 
-    def update_calendar(self, q, r):
+    def update_calendar(self, typ="qn", q=None, r=None):
         cal = self.controller.frames[CalendarPage]
-        cal.update_calendar(datetime.date.today(), typ="qn", q=q, r=r)
+        cal.update_calendar(datetime.date.today(), typ=typ, q=q, r=r)
 
 
 class InspQuPage(tk.Frame):
