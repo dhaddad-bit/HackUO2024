@@ -34,7 +34,7 @@ class Survey:
             
     
 
-    def reader(self, path: str, qual: bool):
+    def reader(self, path: str):
         """Read question from a CSV file and appends to survey lists."""
         with open(path, 'r', encoding='utf-8') as file:
             reader = csv.reader(file)

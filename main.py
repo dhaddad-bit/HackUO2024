@@ -11,7 +11,7 @@ def main():
     app.mainloop()
     print
 =======
-from Survey import Survey
+from survey import Survey
 from view import WellnessTracker
 
 s = Survey(10, 'quantitative')
