@@ -60,9 +60,7 @@ def rand_quote(q_list: list):
 
 def save_inputs(words, filename):
     """rewrites a file with updated list of words"""
-    with open(filename, 'a', encoding='utf-8', newline='') as f:
+    with open(filename, 'a', encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(words)
         f.close()
-
-print(rand_quote(load_quotes("csv/quantitative.csv", "Questions")))

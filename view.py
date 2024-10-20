@@ -7,7 +7,7 @@ import datetime
 
 import csv
 
-from questions import rand_quote, load_data, load_quotes, save_inputs
+from questions import *
 
 DIC = {}
 
@@ -97,6 +97,9 @@ class CalendarPage(tk.Frame):
 
         for i in range(len(PAST_RATES)):
             self.calendar.calevent_create(date=PAST_RATES[i][0], text="", tags=PAST_RATES[i][1])
+        
+        for i in range(len(QUANT_RES)):
+            self.
 
         self.calendar.tag_config('1', background='SteelBlue4', foreground='white')
         self.calendar.tag_config('2', background='SteelBlue3', foreground='white')
@@ -197,7 +200,7 @@ class QuanPage(tk.Frame):
         self.back_button.pack(pady=10)
 
         self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))
-        self.label = tk.Label(self, text=self.question)
+        self.label = tk.Label(self, text=self.question[1])
         self.label.pack(pady=5)
 
         self.txt = tk.Text(self, height=10,
@@ -213,16 +216,19 @@ class QuanPage(tk.Frame):
         self.quote_button.pack(pady=5)
 
     def get_new_survey(self, label):
-        self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))[1]
-        label.config(text = self.question)
-        csv_inp = [datetime.date.today().strftime("%Y-%m-%d"), ]
+        res = self.res_dict[self.question[1]]
+        csv_inp = [datetime.date.today().strftime("%Y-%m-%d"), self.question[0], res]
         save_inputs(csv_inp, "csv/quantitative_responses.csv")
 
+        self.question = rand_quote(load_quotes("csv/quantitative.csv", "Questions"))
+        label.config(text = self.question[1])
+
+
     def take_input(self, txt):
-        inp = txt.get("1.0", "end-1c")
-        self.res_dict[self.question] = inp
+        self.inp = txt.get("1.0", "end-1c")
+        self.res_dict[self.question[1]] = self.inp
         txt.delete('1.0', tk.END)
-        print(self.res_dict)
+
 
 
 class InspQuPage(tk.Frame):
