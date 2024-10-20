@@ -27,8 +27,8 @@ class Survey:
         
     def __str__(self):
         txt = "\n".join(f"{self.questions[i]}" for i in range(self.num_of_questions))
-        print(txt)
-        return f"{self.questions}"
+        #print(txt)
+        return f"{txt}"
 
 
             
